@@ -265,6 +265,7 @@
         scene.script(key, map, section);
       }
 
+      // Event Handlers
 
       sections.on('viewing', function() {
 
@@ -282,6 +283,11 @@
 
         // Show corresponding Data Scene
         showMap($(this).data('scene'));
+
+        // change Title
+        var title = $(this).attr('title')
+        var sectionheading = $('a[class^="title section-heading"]').children();
+        sectionheading.html(title);
 
         if (typeof(scenes[$(this).data('scene')].script) !== 'undefined') {
           executeScript($(this).data('scene'));
@@ -314,7 +320,7 @@
           $('#sidebar').toggleClass('active');
           $('.overlay').removeClass('active');
         });
-        
+
       });
 
       // create a progress line
