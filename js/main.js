@@ -137,7 +137,7 @@ var scenes = {
 var createMap = function() {
   var map = L.map($('.storymap-map')[0], {
     zoomControl: false
-  }).setView([53.09460389460539, 8.771724700927736], 16);
+  }).setView([53.09460389460539, 8.771724700927736], 15);
 
   console.log('storymap.js createMap');
   // L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png').addTo(map);

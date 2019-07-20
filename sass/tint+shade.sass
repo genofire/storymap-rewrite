@@ -6,6 +6,7 @@
 @function tint($color, $percentage)
   @return mix(white, $color, $percentage)
 
+$shade-color: #1F5E69
 
 /// Slightly darken a color
 /// @access public
@@ -13,4 +14,4 @@
 /// @param {Number} $percentage - percentage of `$color` in returned color
 /// @return {Color}
 @function shade($color, $percentage)
-  @return mix(black, $color, $percentage)
+  @return mix($shade-color, $color, $percentage)
