@@ -1,40 +1,27 @@
 {
-    "title": "storymap Framework",
-    "name": "storymap-framework",
-    "version": "5.1.1",
-    "scripts": {
-        "start": "node_modules/.bin/gulp watch"
-    },
-    "description": "A simple sidbar navigation HTMl template built with Bootstrap",
-    "keywords": [
-        "css",
-        "sass",
-        "html",
-        "responsive",
-        "theme",
-        "template"
-    ],
-    "homepage": "https://startbootstrap.com/template-overviews/simple-sidebar",
+    "title": "storymap-rewrite",
+    "name": "storymap-rewrite",
+    "version": "0.1.0",
+    "description": "A rewrite of a storymap tool for leaflet",
+    "keywords": [],
+    "homepage": "ak-hafen.de",
     "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-simple-sidebar/issues",
-        "email": "feedback@startbootstrap.com"
+        "url": "https://github.com/janebuoy/storymap-rewrite/issues",
+        "email": "janebuoy@posteo.de"
     },
     "license": "MIT",
-    "author": "Start Bootstrap",
+    "author": "Jane Buoy",
     "contributors": [
-        "David Miller (http://davidmiller.io/)"
+        ""
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-simple-sidebar.git"
+        "url": "https://github.com/janebuoy/storymap-rewrite.git"
     },
     "dependencies": {
         "bootstrap": "4.3.1",
         "jquery": "3.4.1"
     },
     "devDependencies": {
-        "browser-sync": "2.26.7",
-        "del": "^4.1.1",
-        "merge-stream": "2.0.0"
     }
 }
