@@ -1,0 +1,61 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Tové",
+		    "description": "Einer der Standorte des Baumwollvolkskulturprojektes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.252747,
+          6.716325
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Notse",
+		    "description": "Einer der Standorte des Baumwollvolkskulturprojektes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.166861,
+          6.948440
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "New Orleans",
+		    "description": "Abfahrtshafen der mit Baumwolle beladenen Schiffe in den USA (am Beispiel der Albers, von Wätjen, 1852)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.031531,
+          30.029459
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Leipzig Lindenau",
+		    "description": "Leipziger Baumwollspinnerei"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+         12.317536,
+         51.325905
+        ]
+      }
+    }
+  ]
+}

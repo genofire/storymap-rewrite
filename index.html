@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Storymap Rewrite</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/storymap-rewrite.css" rel="stylesheet">
+  <!--leaflet css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+  <!--Font-->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- LEAFLET -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <!--leaflet.ajax for asynchronously adding geojson data-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+  <!-- Popper -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+  <!-- Storymap -->
+  <script src="./js/components/storymap-rewrite.js"></script>
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <div class="sidebar-header">
+        <h3 class="heading">Overview</h3>
+        <button type="button" id="dismiss" class="btn square square3 btn-info">
+          <i class="icon ion-md-close"></i>
+        </button>
+      </div>
+      <ul class="list-unstyled components">
+        <li>
+          <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+          <ul class="collapse list-unstyled" id="homeSubmenu">
+            <li>
+              <a href="#">Home 1</a>
+            </li>
+            <li>
+              <a href="#">Home 2</a>
+            </li>
+            <li>
+              <a href="#">Home 3</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#scene1" data-target="scene1">Scene 1</a>
+        </li>
+        <li>
+          <a href="#scene2" data-target="scene2">Scene 2</a>
+        </li>
+        <li>
+          <a href="#scene3" data-target="scene3">Scene 3</a>
+        </li>
+        <li>
+          <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+          <ul class="collapse list-unstyled" id="pageSubmenu">
+            <li>
+              <a href="#">Page 1</a>
+            </li>
+            <li>
+              <a href="#">Page 2</a>
+            </li>
+            <li>
+              <a href="#">Page 3</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Portfolio</a>
+        </li>
+        <li>
+          <a href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div id="content">
+        <!-- <div id="mapcontainer"></div> -->
+        <div id="storymap" class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <button type="button" id="sidebarCollapse" class="btn square square2 btn-info">
+                <i class="icon ion-md-menu"></i>
+              </button>
+              <a href="#content1" data-toggle="collapse" data-target=".section-content" class="title section-heading">
+                <button type="button" class="btn btn-info">
+                  Introduction
+                </button>
+              </a>
+              <button type="button" id="contentCollapse" class="btn square square2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="icon ion-md-arrow-dropup"></i>
+              </button>
+            </div>
+          </nav>
+          <div class="row">
+            <div class="col-sm-6 col-md-8 storymap-map"></div>
+            <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story">
+              <section data-scene="scene1">
+                <div class="show section-content" id="content1">
+                  <p>
+                    <figure>
+                      <figcaption>Listen to the T-Rex:</figcaption>
+                      <audio controls src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" style="width: 100%">
+                        Your browser does not support the
+                        <code>audio</code> element.
+                      </audio>
+                    </figure>
+                    <span>
+                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+                      sit amet.
+                    </span>
+                  </p>
+                </div>
+              </section>
+              <section data-scene="scene2">
+                <div class="show section-content" id="content2">
+                  <p>
+                    <span>
+                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
+                      sit amet.
+                    </span>
+                  </p>
+                </div>
+              </section>
+              <section data-scene="scene3">
+                <div class="show section-content" id="content3">
+                  <p>
+                    At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                    <br></br>
+                    <!-- TODO -->
+                    <!-- Style -->
+                    <!-- Add Functionality -->
+                    <span class="customRange">
+                      <label for="custom-range">Transparency Slider</label>
+                      <input type="range" class="custom-range" id="customRange" value="80">
+                    </span>
+                    <br></br>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                    voluptua.
+                  </p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <div class="overlay"></div>
+    <!-- Menu Toggle Script -->
+    <script src="./js/main.js" charset="utf-8"></script>
+</body>
+
+</html>
