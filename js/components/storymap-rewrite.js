@@ -60,12 +60,7 @@
     var makeStoryMap = function(element, scenes) {
 
       $(element).addClass("storymap");
-      /*
-      var topElem = $('<div class="storymap-trigger"></div>')
-        .css('top', settings.triggerpos);
-      $('body').append(topElem);
-      var top = topElem.offset().top - $(window).scrollTop();
-      */
+
       var searchfor = settings.selector;
       var sections = $(element).find(searchfor);
       // console.log(sections);
@@ -73,13 +68,6 @@
 
 
       var currentLayerGroup = L.layerGroup().addTo(map);
-      // var nav = $("nav");
-
-      var slider = $("#slider");
-      console.log(slider);
-      var sliderValue = slider.val();
-      console.log(sliderValue);
-
 
       if (settings.baselayer) {
         // add a base map, which can be either OSM, mapbox, tilelayer, wmslayer or those designed by yourself.
@@ -165,33 +153,6 @@
         $("storymap-map").css("cursor", "pointer");
       }
 
-      /*
-      $.each(sections, function(key, element) {
-        var section = $(element);
-
-        var path = section.data('background');
-        console.log(section);
-        if (typeof path !== 'undefined') {
-
-
-          if (path.indexOf("jpg") >= 0 || path.indexOf("jpeg") >= 0 || path.indexOf("png") >= 0 || path.indexOf("bmp") >= 0 || path.indexOf("gif") >= 0) {
-            $("head").append("<style> ." + section.data('scene') + "-bg-img { background: url(" + path + ") no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover;  -o-background-size: cover; background-size: cover; }</style>");
-
-            $(section).find(".fullscreen").addClass(section.data('scene') + "-bg-img");
-
-          } else if (path.indexOf("mp4") >= 0) {
-
-            $(section).find(".fullscreen").before('<video class="fullscreen canvas-center"  playsinline autoplay muted loop><source src=' + path + '  type="video/mp4"></video>')
-
-          } else {
-            console.log(path);
-          }
-        }
-
-      });
-      */
-
-
       if (!String.prototype.includes) {
         String.prototype.includes = function() {
           'use strict';
@@ -201,7 +162,6 @@
 
       $.each(layers, function(key, layer) {
 
-        // layer = layer.layer;
         layer.layer.on('s');
         layer.layer.on('load', function() {
           $(".storymap-loader").fadeTo(1000, 0);
@@ -270,7 +230,9 @@
         scene.script(key, map, section);
       }
 
-      // Event Handlers
+      /*
+      EVENT HANDLERS
+      */
 
       sections.on('viewing', function() {
 
