@@ -204,13 +204,21 @@
 
         }
 
-        if (settings.flyto) {
+        if (scene.flyto == false) {
+          map.setView([scene.lat, scene.lng], scene.zoom, {
+            animate: false,
+            easeLinearity: 0.2,
+            duration: 4 // in seconds
+          })
+        }
+        else if (settings.flyto) {
           map.flyTo([scene.lat, scene.lng], scene.zoom, {
             animate: true,
             easeLinearity: 0.2,
             duration: 4 // in seconds
           })
-        } else {
+        }
+        else {
           map.setView([scene.lat, scene.lng], scene.zoom, {
             animate: false,
             easeLinearity: 0.2,
@@ -253,6 +261,7 @@
 
         // change Title
         var title = $(this).attr('title')
+        console.log($(this));
         var sectionheading = $('a[class^="title section-heading"]').children();
         sectionheading.html(title);
 

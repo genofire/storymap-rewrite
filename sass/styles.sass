@@ -163,7 +163,50 @@ a
     a
       color: $white
     &:before
-      background: $highlight
+      background: $third-color-highlight
+
+
+
+.btn
+  &.circle
+    a
+      i
+        line-height: 56px
+      width: 100%
+      text-align: center
+      padding: 0
+      line-height: 0
+    width: 56px
+    box-shadow: none
+    &:before
+      border-radius: 50%
+      transition: all 0.3s ease , border-radius 0.3s ease 0.2s
+    &:hover::before
+      border-radius: 50%
+  &.circle2
+    background: $third-color-shadow
+    height: 56px
+    border-radius: 50%
+    &:hover,
+    &:focus,
+    &:visited
+      color: #fff
+      background-color: $third-color-shadow !important
+      border-color: $third-color-shadow !important
+      border: 0
+    &:active
+      color: #fff
+      background-color: $second-color !important
+      border-color: $third-color-light !important
+      border: 0
+    a
+      color: $white
+    &:before
+      background: $third-color-highlight
+
+.last-item-btn
+  margin-left: 7.5px
+  margin-right: 7.5px
 
 .button
   border: 0
@@ -184,7 +227,7 @@ a
   margin-left: 44px
   margin-right: auto
 
-.row
+.row-main
   width: calc(100% + 15px)
   margin-left: -15px
 

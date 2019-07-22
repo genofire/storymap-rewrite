@@ -85,22 +85,23 @@ var scenes = {
   overview: {
     lat: 53.09460389460539,
     lng: 8.771724700927736,
-    zoom: 16,
+    zoom: 14,
     layers: [layers.data_route, layers.data_points],
     name: "Overview"
   },
   scene1: {
     lat: 53.09460389460539,
     lng: 8.771724700927736,
-    zoom: 16,
+    zoom: 15,
     layers: [layers.data_route, layers.data_points],
     name: "Introduction"
   },
   scene2: {
     lat: 53.3057,
-    lng: 8.7362,
+    lng: 8.6162,
     zoom: 10,
     layers: [layers.esri_world, layers.weserkorrektion],
+    flyto: false,
     name: "River Conservancy",
   },
   scene3: {
