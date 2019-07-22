@@ -226,7 +226,7 @@
       function executeScript(key) {
         var scene = scenes[key];
         var section = $('section[data-scene="' + key + '"]')
-        console.log(section);
+        // console.log(section);
         scene.script(key, map, section);
       }
 
