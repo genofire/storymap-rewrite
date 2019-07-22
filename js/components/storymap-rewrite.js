@@ -75,6 +75,11 @@
       var currentLayerGroup = L.layerGroup().addTo(map);
       // var nav = $("nav");
 
+      var slider = $("#slider");
+      console.log(slider);
+      var sliderValue = slider.val();
+      console.log(sliderValue);
+
 
       if (settings.baselayer) {
         // add a base map, which can be either OSM, mapbox, tilelayer, wmslayer or those designed by yourself.
