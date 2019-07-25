@@ -287,7 +287,7 @@
       // Show Previous Section
       function showPrevious(key, obj) {
         var i = sceneKeys.indexOf(key)
-        if (keys[i] != 'scene1') {
+        if (sceneKeys[i] != 'scene1') {
           gotoScene = prev
           getSection(sections);
         }
