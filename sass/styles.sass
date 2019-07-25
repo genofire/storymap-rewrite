@@ -47,7 +47,7 @@ a
   border-radius: 0
   background-color: $first-color !important
   box-shadow: 1px 1px 3px $light-black
-  z-index: 1
+  z-index: 2
 
 .navbar-btn
   font-size: 1.25rem !important
@@ -227,7 +227,26 @@ a
   margin-left: 44px
   margin-right: auto
 
-.row-main
+.row-navigation
+  position: absolute
+  width: 100%
+  height: 100%
+  margin: 0
+
+.arrow-left,
+.arrow-right
+  display: inline
+  // font-size: 50px
+  color: red
+  width: 50px
+  padding: 15px
+  text-shadow: 3px 3px 4px $highlight
+  margin-top: auto
+  margin-bottom: auto
+  z-index: 1
+
+
+.row-storymap
   width: calc(100% + 15px)
   margin-left: -15px
 

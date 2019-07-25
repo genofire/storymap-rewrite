@@ -2,6 +2,11 @@
 // Originally obtained from http://atlefren.github.io/storymap/
 // Updated on 05/04/2018 | version 2.4.0 | MIT License
 
+// [] TODO: Fix URLs
+// [] TODO: Builds Sidebar Content dynamically
+// [] TODO: Geolocation Bounds
+// [] TODO: ProgressLine on Map (VectorPath)
+
 (function($) {
 
   $.fn.storymap = function(options) {
@@ -26,47 +31,36 @@
       throw new Error('Storymap requires Leaflet.');
     }
 
-    // Define Scene 1 as Opening Scene
-    var currentScene = "scene1";
+    var current;
+    var prev;
+    var next;
+    var first;
+    var last;
 
-    function getFirstSection(sections) {
+    var gotoScene = "scene1";
 
-      var thesections = $.map(sections, function(element) {
-        return {
-          el: $(element)
-        };
-      });
+    // var theSections = [] // Kept for sec check against sceneNames
+    var sceneKeys = Object.keys(scenes);
+    var sceneNames = {}
 
-      $.each(sections, function(key, element) {
+    var firstSceneTitle;
+    var previousSceneTitle;
+    var nextSceneTitle;
 
-        var section = $(element);
-        if (section[0].dataset.scene !== currentScene) {
-          section.trigger('notviewing');
-        } else {
-          section.trigger('viewing');
-        };
-      });
+    for (i = 0; i < sceneKeys.length; i++) {
+      var sceneKey = sceneKeys[i];
+      var sceneName = scenes[sceneKeys[i]].name;
+      sceneNames[sceneKey] = sceneName;
     }
-
-    // watchHighlight rewrite
-    function showSection(element, searchfor) {
-      var sections = element.find(searchfor);
-      getFirstSection(sections);
-    }
-
-    //support video for IE 8 and 9.
-    document.createElement('video');
 
     var makeStoryMap = function(element, scenes) {
 
       $(element).addClass("storymap");
 
+      var scenes = settings.scenes;
       var searchfor = settings.selector;
       var sections = $(element).find(searchfor);
-      // console.log(sections);
       var map = settings.createMap();
-
-
       var currentLayerGroup = L.layerGroup().addTo(map);
 
       if (settings.baselayer) {
@@ -76,6 +70,7 @@
 
       if (settings.legend) {
         $(".storymap").append("<div class='storymap-legend' />")
+
       }
 
       if (settings.scalebar) {
@@ -88,7 +83,7 @@
 
       if (settings.zoomControl) {
         L.control.zoom({
-          position:'bottomright'
+          position: 'bottomright'
         }).addTo(map);
       }
 
@@ -107,7 +102,6 @@
 
       }
 
-
       $(".storymap-map .leaflet-control-attribution")
         .addClass("storymap-attribution")
         .html("<a href='https://github.com/jakobzhao/storymap'><img src='https://jakobzhao.github.io/storymap/img/logo.png' width='18px' target='_blank' > storymap.js </a>");
@@ -124,8 +118,8 @@
         if (map.tap) map.tap.enable();
         $("storymap-map").css("cursor", "grab");
 
-      } else {
-
+      }
+      else {
         map.dragging.disable();
         if (map.tap) map.tap.disable();
         $("storymap-map").css("cursor", "pointer");
@@ -142,15 +136,17 @@
 
         $("storymap-map").css("cursor", "grab");
 
-      } else {
-
+      }
+      else {
         map.touchZoom.disable();
         map.doubleClickZoom.disable();
         map.scrollWheelZoom.disable();
         map.boxZoom.disable();
         map.keyboard.disable();
         if (map.tap) map.tap.disable();
+
         $("storymap-map").css("cursor", "pointer");
+
       }
 
       if (!String.prototype.includes) {
@@ -210,15 +206,13 @@
             easeLinearity: 0.2,
             duration: 4 // in seconds
           })
-        }
-        else if (settings.flyto) {
+        } else if (settings.flyto) {
           map.flyTo([scene.lat, scene.lng], scene.zoom, {
             animate: true,
             easeLinearity: 0.2,
             duration: 4 // in seconds
           })
-        }
-        else {
+        } else {
           map.setView([scene.lat, scene.lng], scene.zoom, {
             animate: false,
             easeLinearity: 0.2,
@@ -231,43 +225,113 @@
 
       }
 
-      function executeScript(key) {
-        var scene = scenes[key];
-        var section = $('section[data-scene="' + key + '"]')
-        // console.log(section);
-        scene.script(key, map, section);
+      function getSection(sections) {
+
+        // theSections = $.map(sections, function(element) {
+        //   return element.dataset.scene;
+        // });
+
+        $.each(sections, function(key, element) {
+
+          var section = $(element);
+          if (section[0].dataset.scene !== gotoScene) {
+            section.trigger('notviewing');
+          } else {
+            section.trigger('viewing');
+          };
+        });
       }
 
-      /*
-      EVENT HANDLERS
-      */
+      function buildSections(element, searchfor) {
+        sections = $(element).find(searchfor);
+        getSection(sections);
+      }
+
+      //change Title
+      function changeTitle(key) {
+        var scene = scenes[key];
+        var section = $('section[data-scene="' + key + '"]')
+        var sectionHeading = $('a[class^="title section-heading"]').children().html(scene.name);
+      }
+
+      // Find Current Scene
+      function findCurrent(key, obj) {
+        current = sceneKeys[sceneKeys.indexOf(key) % sceneKeys.length]
+      }
+
+      // Find Previous Scene
+      function findPrevious(key, obj) {
+        prev = sceneKeys[(sceneKeys.indexOf(key) - 1) % sceneKeys.length]
+        var previousLink = $('#prevSceneLeft').children()[0]
+        $(previousLink).attr("href", '#' + sceneNames[prev]);
+
+      }
+
+      // Find Next Scene
+      function findNext(key, obj) {
+        next = sceneKeys[(sceneKeys.indexOf(key) + 1) % sceneKeys.length]
+        var nextLink = $('#nextSceneRight').children()[0]
+        $(nextLink).attr("href", '#' + sceneNames[next]);
+
+      }
+
+      // Find First Scene
+      function findFirst(key, obj) {
+        first = sceneKeys[(sceneKeys.indexOf(key) + 1) % sceneKeys.length]
+        var nextLink = $('#nextSceneRight').children()[0]
+        firstSceneTitle = sceneNames[first];
+        $(nextLink).attr("href", '#' + firstSceneTitle);
+
+      }
+
+      // Show Previous Section
+      function showPrevious(key, obj) {
+        var i = sceneKeys.indexOf(key)
+        if (keys[i] != 'scene1') {
+          gotoScene = prev
+          getSection(sections);
+        }
+      }
+
+      // Show Next Section
+      function showNext(key, obj) {
+
+        var i = sceneKeys.indexOf(key)
+        if (i < sceneKeys.length - 1) {
+          gotoScene = next
+          getSection(sections);
+        }
+        if (i == sceneKeys.length - 2) {
+          // TODO: either remove Button or change to Home
+          $('#nextSceneRight').html("<a href='#'><i class='icon ion-md-home'></i></a>");
+        }
+        if (i == sceneKeys.length - 1) {
+          // TODO: create first Scene variable
+          gotoScene = first
+          getSection(sections);
+          $(this).html("<a href='#nextScene'><i class='icon ion-md-arrow-forward'></i></a>");
+        }
+      }
+
+      ////////////////////
+      /* EVENT HANDLERS */
+      ///////////////////
 
       sections.on('viewing', function() {
 
         $(this)
-          //.removeClass('invisible')
           .removeClass('hide')
           .addClass('visible')
           .addClass('viewing')
           .addClass('show');
 
-        if (typeof $(this).data("background") !== 'undefined') {
-          $(this)
-            .addClass('section-opacity');
-        }
+        var key = $(this).data('scene')
 
-        // Show corresponding Data Scene
-        showMap($(this).data('scene'));
-
-        // change Title
-        var title = $(this).attr('title')
-        console.log($(this));
-        var sectionheading = $('a[class^="title section-heading"]').children();
-        sectionheading.html(title);
-
-        if (typeof(scenes[$(this).data('scene')].script) !== 'undefined') {
-          executeScript($(this).data('scene'));
-        }
+        changeTitle(key);
+        findCurrent(key, sceneNames);
+        findPrevious(key, sceneNames);
+        findNext(key, sceneNames);
+        showMap(key);
       });
 
       sections.on('notviewing', function() {
@@ -276,21 +340,20 @@
           .removeClass('viewing')
           .removeClass('show')
           .removeClass('visible')
-          // .addClass('invisible')
           .addClass('hide');
       });
 
-      showSection(element, searchfor);
+      buildSections(element, searchfor);
 
       // Sidemenu Scene Switch
       var links = $('a[href^="#scene"]');
       links.each(function(index) {
 
-        $(this).on("click", function() {
+        $(this).click(function() {
 
-          if (currentScene !== this.dataset.target) {
-            currentScene = this.dataset.target;
-            showSection(element, searchfor);
+          if (gotoScene !== this.dataset.target) {
+            gotoScene = this.dataset.target;
+            getSection(sections);
           };
 
           $('#sidebar').toggleClass('active');
@@ -299,19 +362,19 @@
 
       });
 
-      // create a progress line
-      $(window).scroll(function() {
-        var wintop = $(window).scrollTop(),
-          docheight = $(document).height(),
-          winheight = $(window).height();
-        var scrolled = (wintop / (docheight - winheight)) * 100;
+      // Switch Scenes on Left and Right Arrow click
+      $('#nextSceneRight').click(function() {
+        showNext(current, sceneNames);
+      })
 
-        $('.storymap-progressline').css('width', (scrolled + '%'));
+      $('#prevSceneLeft').click(function () {
+        showPrevious(current, sceneNames);
       });
 
     };
 
-    makeStoryMap(this, settings.scenes);
+    makeStoryMap(this, scenes);
+
     return this;
   }
 

@@ -94,6 +94,7 @@ var scenes = {
     lng: 8.771724700927736,
     zoom: 15,
     layers: [layers.data_route, layers.data_points],
+    flyto: false,
     name: "Introduction"
   },
   scene2: {
