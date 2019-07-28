@@ -1,182 +1,290 @@
+//
+var stripes_eastside;
+var map;
+
+var circlecolors = {
+    puce: '#C77F99',
+    blue: '#75b7e3',
+    green: '#a1c58a'
+}
 
 // Layer Styling
-const data_route_style = {
-  "color": '#706d93', // $rhythm
-  "weight": 5,
-  "opacity": 0.7,
-	"lineCap": 'round',
-	"dashArray": "0.7 12"
-};
-
-const data_ports = {
-  "color": '#209488',
-  "weight": 2,
-  "fillColor": "#209488",
-  "opacity": 0.7,
-  "fillOpacity": 0.7
+function styleFeatures(feature) {
+    return {
+        color: '#878d8e',
+        fillPattern: stripes_eastside,
+        fillOpacity: 0.8,
+        weight: 1,
+        smoothFactor: 1,
+    }
 }
+
+function pointToLayer(feature, latlng) {
+    var style = []
+    for (const [key, value] of Object.entries(circlecolors)) {
+        style[key] = {
+            radius: 16,
+            fillColor: value,
+            color: '#878d8e',
+            fillOpacity: 0.5,
+            opacity: 1,
+            weight: 1,
+        }
+        if (feature.color == key) {
+            return L.circleMarker(latlng, style[key]);
+        }
+    }
+}
+
+function onEachFeature(feature, layer) {
+    if (feature.properties && feature.properties.name) {
+        layer.bindPopup(feature.properties.name);
+        layer.on({
+            mouseover: hoverInItem,
+            // mouseout: hoverOutItem,
+            click: onItemClick,
+        });
+    }
+}
+
+function hoverInItem(item) {
+    this.openPopup();
+}
+
+function hoverOutItem(item) {
+    this.closePopup();
+}
+
+function onItemClick(item) {
+    map.setView(item.latlng, 16)
+    var itemName = item.target.feature.properties.scene
+    console.log(item.target.feature.properties.name);
+
+    var loop_before = loop.slice(0, loop.indexOf(itemName))
+    var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
+
+    loop = loop_after.concat(loop_before)
+
+    gotoScene = itemName
+    getSection(sections);
+}
+
+const data_route_style = {
+    color: '#706d93', // $rhythm
+    weight: 3,
+    opacity: 0.7,
+    lineCap: 'round',
+    dashArray: "0.7 6"
+};
 
 // Setup leaflet layers
 var layers = {
-  carto_positron: {
-    layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    })
-  },
-  stamen_toner_bg: {
-    layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      subdomains: 'abcd',
-      minZoom: 0,
-      maxZoom: 20,
-      ext: 'png'
-    })
-  },
-  stamen_terrain: {
-    layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
-      attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      subdomains: 'abcd',
-      minZoom: 0,
-      maxZoom: 20,
-      ext: 'png'
-    })
-  },
-  esri_world: {
-    layer: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    })
-  },
-  data_points: {
-    layer: L.geoJson.ajax('./data/points.geojson'),
-  },
-  data_route: {
-    layer: L.geoJson.ajax('./data/route.geojson', {
-      style: data_route_style
-    }),
-  },
-  weserkorrektion: {
-    layer: L.tileLayer('./data/05_port_construction/Weserkorrektion_tiles/{z}/{x}/{y}.png', {
-      tms: true,
-      opacity: 0.8,
-      attribution: ""
-    })
-  },
-  data_ports_1882: {
-    layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1882+4326.geojson', {
-      style: data_ports
-    }),
-  },
-  data_ports_1884: {
-    layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1884+4326.geojson', {
-      style: data_ports
-    }),
-  },
-  data_ports_1914: {
-    layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1914+4326.geojson', {
-      style: data_ports
-    }),
-  },
+    carto_positron: {
+        layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        })
+    },
+    stamen_toner_bg: {
+        layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 0,
+            maxZoom: 20,
+            ext: 'png'
+        })
+    },
+    stamen_terrain: {
+        layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 0,
+            maxZoom: 20,
+            ext: 'png'
+        })
+    },
+    esri_world: {
+        layer: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        })
+    },
+    data_route: {
+        layer: L.geoJson.ajax('./data/route.geojson', {
+            style: data_route_style
+        }),
+    },
+    data_points: {
+        layer: L.geoJson.ajax('./data/points.geojson', {
+            onEachFeature: onEachFeature,
+            pointToLayer: pointToLayer
+        }),
+    },
+    weserkorrektion: {
+        layer: L.tileLayer('./data/05_port_construction/Weserkorrektion_tiles/{z}/{x}/{y}.png', {
+            tms: true,
+            opacity: 0.1,
+            changeOpacity: true,
+            attribution: ""
+        })
+    },
+    ueberseehafenbecken: {
+        layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ueberseehafenbecken.geojson', {
+            style: styleFeatures
+        }),
+    },
+    data_ports_1882: {
+        layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1882+4326.geojson', {
+            style: styleFeatures
+        }),
+    },
+    data_ports_1884: {
+        layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1884+4326.geojson', {
+            style: styleFeatures
+        }),
+    },
+    data_ports_1914: {
+        layer: L.geoJson.ajax('./data/04_ueberseehafenbecken/ports_1914+4326.geojson', {
+            style: styleFeatures
+        }),
+    },
 };
 
 // Setup Scenes/Chapters
 var scenes = {
-  overview: {
-    lat: 53.09460389460539,
-    lng: 8.771724700927736,
-    zoom: 14,
-    layers: [layers.data_route, layers.data_points],
-    name: "Overview"
-  },
-  scene1: {
-    lat: 53.09460389460539,
-    lng: 8.771724700927736,
-    zoom: 15,
-    layers: [layers.data_route, layers.data_points],
-    flyto: false,
-    name: "Introduction"
-  },
-  scene2: {
-    lat: 53.3057,
-    lng: 8.6162,
-    zoom: 10,
-    layers: [layers.esri_world, layers.weserkorrektion],
-    flyto: false,
-    name: "River Conservancy",
-  },
-  scene3: {
-    lat: 53.11952960361747,
-    lng: 8.729152679443361,
-    zoom: 14,
-    layers: [layers.esri_world, layers.weserkorrektion],
-    name: "Durchstich der Langen Bucht",
-  },
-  scene4: {
-    lat: 53.098778508646554,
-    lng: 8.764278888702394,
-    zoom: 16,
-    layers: [layers.data_ports_1882],
-    name: "Harbor Basins (1882)",
-  },
-  scene5: {
-    lat: 53.1036097321532,
-    lng: 8.758850097656252,
-    zoom: 15,
-    layers: [layers.data_ports_1884],
-    name: "Harbor Basins (1884)",
-  },
-  scene6: {
-    lat: 53.098778508646554,
-    lng: 8.764278888702394,
-    zoom: 15,
-    layers: [layers.data_ports_1914],
-    name: "Harbor Basins (1914)",
-  }
+    navigation: {
+        lat: 53.09460389460539,
+        lng: 8.771724700927736,
+        zoom: 15,
+        layers: [layers.data_route, layers.data_points],
+        flyto: false,
+        navigation: true,
+        name: "Navigation"
+    },
+    ueberseetor: {
+        lat: 53.09476,
+        lng: 8.77068,
+        zoom: 17,
+        slider: false, // also chane changeOpacity: true in Layer
+        layers: [layers.ueberseehafenbecken, layers.data_route, layers.data_points],
+        flyto: true,
+        navigateTo: false,
+        name: "Überseetor",
+    },
+    europahafen: {
+        lat: 53.09412391687471,
+        lng: 8.765995502471922,
+        zoom: 17,
+        slider: false,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_points],
+        name: "Europahafen",
+    },
+    weserkorrektion: {
+        lat: 53.1127,
+        lng: 8.7238,
+        zoom: 14,
+        slider: true,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.esri_world, layers.weserkorrektion],
+        name: "Weserkorrektion",
+    },
+    speicher11: {
+        lat: 53.096343366348854,
+        lng: 8.7715744972229,
+        zoom: 17,
+        flyto: true,
+        slider: false,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_points],
+        name: "Speicher XI",
+    },
+    fabrikenufer: {
+        lat: 53.09818262016042,
+        lng: 8.773621022701263,
+        zoom: 17,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_points],
+        name: "Fabrikenufer",
+    },
+    waller_wied: {
+        lat: 53.09397573474871,
+        lng: 8.774774372577667,
+        zoom: 17,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_points],
+        name: "Waller Wied",
+    },
+    konsul_smidt_str: {
+        lat: 53.09161441592877,
+        lng: 8.772218227386475,
+        zoom: 17,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_points],
+        name: "Konsul-Smidt-Straße",
+    }
 };
 
-// Create Map
-var createMap = function() {
-  var map = L.map($('.storymap-map')[0], {
-    zoomControl: false
-  }).setView([53.09460389460539, 8.771724700927736], 15);
-
-  // console.log('storymap.js createMap');
-  // L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}@2x.png').addTo(map);
-  return map;
-}
 
 $('#storymap').storymap({
-  scenes: scenes,
-  baselayer: layers.carto_positron,
-  legend: true,
-  navbar: false,
-  loader: true,
-  flyto: true,
-  dragging: true,
-  credits: "<i class='icon ion-md-build' style='font-size: 10px;'></i> with <i class='icon ion-md-heart' style='color: red; font-size: 10px;'></i> from Bo Zhao",
-  scalebar: true,
-  scrolldown: false,
-  progressline: true,
-  zoomControl: true,
-  createMap: createMap,
+    scenes: scenes,
+    baselayer: layers.carto_positron,
+    legend: true,
+    navbar: false,
+    loader: true,
+    flyto: true,
+    slider: false,
+    dragging: true,
+    credits: "<i class='icon ion-md-build' style='font-size: 10px;'></i> with <i class='icon ion-md-heart' style='color: red; font-size: 10px;'></i> from Bo Zhao",
+    scalebar: true,
+    scrolldown: false,
+    progressline: true,
+    zoomControl: true,
+    createMap: function() {
+        map = L.map($('.storymap-map')[0], {
+            zoomControl: false
+        }).setView([53.09460389460539, 8.771724700927736], 15);
+
+        var eastside = '#ad7fc7';
+
+        stripes_eastside = new L.StripePattern({
+            color: eastside,
+            opacity: 1,
+            angle: -10
+        }).addTo(map);
+
+        return map;
+
+    }
 });
 
 // Sidemenu Toggle
-$('#dismiss, .overlay').on('click', function () {
-            // hide sidebar
-            $('#sidebar').removeClass('active');
-            $('.overlay').removeClass('active');
-        });
-
-$('#sidebarCollapse').click(function() {
-  $('#sidebar').toggleClass('active');
-	$('.overlay').addClass('active');
+$('#dismiss, .overlay').click(function() {
+    // hide sidebar
+    $('#sidebar').removeClass('active');
+    $('.overlay').removeClass('active');
 });
 
+$('#sidebarCollapse').click(function() {
+    $('#sidebar').toggleClass('active');
+    $('.overlay').addClass('active');
+});
+
+// Audio control
+$("#audioControl").click(function() {
+    $(this).find(".icon").toggleClass('ion-md-play ion-md-pause');
+
+});
+
+
 // Content Toggle
-function toggleIcon(e) {
-  $("#contentCollapse")
+function toggleIcon() {
+    $("#contentCollapse")
     .find(".icon")
     .toggleClass('ion-md-arrow-dropup ion-md-arrow-dropdown');
 }

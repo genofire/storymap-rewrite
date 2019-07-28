@@ -3,175 +3,227 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Storymap Rewrite</title>
+    <title>Storymap Rewrite</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/styles.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/styles.css" rel="stylesheet">
 
-  <!--leaflet css-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
-  <!--Font-->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+    <link href="css/L.Control.Range.css" rel="stylesheet">
 
-  <!-- Icons -->
-  <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+    <!--Font-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Icons -->
+    <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
 
-  <!-- LEAFLET -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
-  <!--leaflet.ajax for asynchronously adding geojson data-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Popper -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <!-- LEAFLET -->
+    <script src="./node_modules/leaflet/dist/leaflet.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="./node_modules/leaflet.ajax/dist/leaflet.ajax.min.js"></script>
+    <script src="./node_modules/leaflet.pattern/dist/leaflet.pattern.js"></script>
+    <script src="./js/L.Control.Range.js"></script>
 
-  <!-- Storymap -->
-  <script src="./js/components/storymap-rewrite.js"></script>
+
+    <!-- Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Storymap -->
+    <script src="./js/components/storymap-rewrite.js"></script>
+    <script src="./js/components/functions.js"></script>
 </head>
 
 <body>
 
-  <div class="wrapper">
-    <!-- Sidebar -->
-    <div id="sidebar">
-      <div class="sidebar-header">
-        <h3 class="heading">Overview</h3>
-        <button type="button" id="dismiss" class="btn square square3 btn-info">
-          <i class="icon ion-md-close"></i>
-        </button>
-      </div>
-      <ul class="list-unstyled components" id="sidebarItems">
-        <li>
-          <a href="#scene1" data-target="scene1">Scene 1: Introduction</a>
-        </li>
-        <li>
-          <a href="#scene2" data-target="scene2">Scene 2: Weserkorrektion</a>
-        </li>
-        <li>
-          <a href="#scene3" data-target="scene3">Scene 3: Lange Bucht</a>
-        </li>
-      </ul>
-    </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <div id="content">
-        <div id="storymap" class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-              <button type="button" id="sidebarCollapse" class="btn square square2 btn-info">
-                <i class="icon ion-md-menu"></i>
-              </button>
-              <a href="#content1" data-toggle="collapse" data-target=".section-content" class="title section-heading">
-                <button type="button" class="btn btn-info navbar-btn">
-                  Introduction
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="heading">Overview</h3>
+                <button type="button" id="dismiss" class="btn square square3 btn-info">
+                    <i class="icon ion-md-close"></i>
                 </button>
-              </a>
-              <button type="button" id="contentCollapse" class="btn square square2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="icon ion-md-arrow-dropup"></i>
-              </button>
             </div>
-          </nav>
-          <div class="row row-main row-navigation d-flex justify-content-between">
-            <div class="arrow-left" id="prevSceneLeft">
-              <a href="#previousScene"><i class="icon ion-md-arrow-back"></i></a>
-            </div>
-            <div class="arrow-right text-right" id="nextSceneRight">
-              <a href="#nextScene"><i class="icon ion-md-arrow-forward"></i></a>
-            </div>
-          </div>
-          <div class="row row-main row-storymap">
-            <div class="col-sm-6 col-md-8 storymap-map"></div>
-            <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story">
-              <section data-scene="scene1">
-                <div class="show section-content" id="content1">
-                  <figure>
-                    <figcaption>Listen to the T-Rex:</figcaption>
-                    <audio controls src="https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3" style="width: 100%">
-                      Your browser does not support the
-                      <code>audio</code> element.
-                    </audio>
-                  </figure>
-                  <p>
-                    <span>
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-                      sit amet.
-                    </span>
-                  </p>
-                </div>
-              </section>
-              <section data-scene="scene2">
-                <div class="show section-content" id="content2">
-                  <p>
-                    <span>
-                      Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                      voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                      clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                      amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                      nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-                      sit amet.
-                    </span>
-                  </p>
-                </div>
-              </section>
-              <section data-scene="scene3">
-                <div class="show section-content" id="content3">
-                  <p>
-                    At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                    clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                    amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                    sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                    <br></br>
-                    <!-- TODO -->
-                    <!-- Style -->
-                    <!-- Add Functionality -->
-                    <span class="customRange">
-                      <label for="custom-range">Transparency Slider</label>
-                      <input type="range" class="custom-range" id="customRange" value="80">
-                    </span>
-                    <br></br>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                    eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                    voluptua.
-                  </p>
-                </div>
-              </section>
-            </div>
-          </div>
+            <ul class="list-unstyled components" id="sidebarItems">
+            </ul>
         </div>
-      </div>
-      <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
-    <div class="overlay"></div>
-    <!-- Menu Toggle Script -->
-    <script src="./js/main.js" charset="utf-8"></script>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div id="content">
+                <div id="storymap" class="container-fluid">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="container-fluid">
+                            <button type="button" id="sidebarCollapse" class="btn square square2 btn-info">
+                                <i class="icon ion-md-menu"></i>
+                            </button>
+                            <a href="#content1" data-toggle="collapse" data-target=".section-content" class="title section-heading">
+                                <button type="button" class="btn btn-info navbar-btn">
+                                    Introduction
+                                </button>
+                            </a>
+                            <button type="button" id="audioControl" class="btn square square2 btn-info" data-toggle="play-pause" data-target="" aria-controls="audioControl" aria-expanded="false" aria-label="Play/Pause Audio">
+                                <i class="icon ion-md-play"></i>
+                            </button>
+                            <button type="button" id="contentCollapse" class="btn square square2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                                <i class="icon ion-md-arrow-dropup"></i>
+                            </button>
+                        </div>
+                    </nav>
+                    <div class="row row-main row-navigation d-flex justify-content-between">
+                        <div class="arrow-left" id="prevSceneLeft">
+                            <a href="#"><i class="arrow-icon icon ion-md-arrow-back"></i></a>
+                        </div>
+                        <div class="arrow-right text-right" id="nextSceneRight">
+                            <a href="#"><i class="arrow-icon icon ion-md-arrow-forward"></i></a>
+                        </div>
+                    </div>
+                    <div class="row row-main row-storymap">
+                        <div class="col-sm-6 col-md-8 storymap-map"></div>
+                        <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story">
+                            <section data-scene="navigation">
+                            </section>
+                            <section data-scene="ueberseetor">
+                                <div class="show section-content" id="ueberseetorContent">
+                                    <p>
+                                        Bevor es richtig losgeht: Warum überhaupt eine Stadtführung zu Kolonialismus
+                                        in der Überseestadt? Zum einen wäre die Geschichte Bremens ohne die Beteiligung
+                                        am Kolonialismus völlig anders verlaufen. Zum anderen sind Häfen immer in
+                                        besonderer Weise Teil kolonialer Beziehungsgeflechte. Die heutige Überseestadt ist
+                                        aus dem ehemaligen Hafen entstanden.
+                                    </p>
+                                    <h2>Bremen als koloniale Stadt in vier Phasen</h2>
+                                    <p>
+                                        Die deutsche Kolonialvergangenheit wird häufig als kurz und unwichtig abgetan.
+                                        Dabei zeigt gerade die Geschichte von Hafen- und Handelsstädten wie Bremen, dass
+                                        der Kolonialismus Politik, Wirtschaft und Gesellschaft seit über 400 Jahren auf
+                                        unterschiedliche Weise prägt. Orte, von denen der Kolonialismus ausging, werden
+                                        koloniale Metropole genannt. Es bietet sich an die Geschichte des Kolonialismus
+                                        in 4 Phasen zu unterteilen, die in einem Zeitstrahl dargestellt sind.
+                                    </p>
+                                    <h2>Hafen als spezifischer Ort dieses Verhältnisses aufgrund von Hafenbau und Handelsbeziehungen</h2>
+                                    <p>
+                                        Dass wir diesen Rundgang durch die Überseestadt machen, ist kein Zufall. Für Bremens
+                                        Kolonialgeschichte und postkoloniale Gegenwart spielt der Hafen eine wichtige Rolle.
+                                        Die stadtbremischen Häfen wurden zwischen 1880 und 1912 gebaut - in der Hochphase
+                                        des deutschen Kolonialismus. Sie waren als Infrastruktur Voraussetzung des kolonialen
+                                        Handels. Dadurch steht die Überseestadt mit den Produktionsbedingungen von Kaffee,
+                                        Baumwolle oder Reis an entfernten Orten in Beziehung.
+                                    <br></br>
+                                        Im Stadtrundgang werden koloniale Handelsbeziehungen in Vergangenheit und Gegenwart,
+                                        die beteiligen Akteur*innen und Waren sichtbar gemacht. Auf den nebenstehenden Karten
+                                        kannst du dir einen Eindruck über die kolonialen Verbindungen Bremens „nach
+                                        Übersee“ verschaffen.
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="europahafen">
+                                <div class="show section-content" id="europahafenContent">
+                                    <p>
+                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                                        <br></br>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                        voluptua.
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="weserkorrektion">
+                                <div class="show section-content" id="weserkorrektionContent">
+                                    <p>
+                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                                        <br></br>
+                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+                                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                        voluptua.
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="speicher11">
+                                <div class="show section-content" id="speicher11Content">
+                                    <p>
+                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+                                        <br></br>
+                                        <!-- TODO -->
+                                        <!-- Style as Switch, see: https://github.com/Bttstrp/bootstrap-switch -->
+                                        <!-- Add Functionality -->
+                                        <span class="customSwitch">
+                                            <input type="checkbox" class="switch" id="customSwitch">
+                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
+                                        </span>
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="fabrikenufer">
+                                <div class="show section-content" id="fabrikenuferContent">
+                                    <p>
+                                        <span class="customSwitch">
+                                            <input type="checkbox" class="switch" id="customSwitch">
+                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
+                                        </span>
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="waller_wied">
+                                <div class="show section-content" id="waller_wiedContent">
+                                    <p>
+                                        <span class="customSwitch">
+                                            <input type="checkbox" class="switch" id="customSwitch">
+                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
+                                        </span>
+                                    </p>
+                                </div>
+                            </section>
+                            <section data-scene="konsul_smidt_str">
+                                <div class="show section-content" id="konsul_smidt_strContent">
+                                    <p>
+
+                                        <span class="customSwitch">
+                                            <input type="checkbox" class="switch" id="customSwitch">
+                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
+                                        </span>
+                                    </p>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+        <div class="overlay"></div>
+        <!-- Menu Toggle Script -->
+        <script src="./js/main.js" charset="utf-8"></script>
 </body>
 
 </html>

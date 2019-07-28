@@ -3,51 +3,27 @@
   "features": [
     {
       "type": "Feature",
+      "color": "puce",
       "properties": {
-        "id": 1,
-		    "chapter": "Introduction"
+        "name": "Überseetor",
+        "scene": "ueberseetor",
+        "id": 1
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          8.775233030319214,
-          53.09818584120143
+          8.771351873874664,
+          53.09422055711675
         ]
       }
     },
     {
       "type": "Feature",
+      "color": "puce",
       "properties": {
-        "id": 2,
-		    "chapter": "Coffee"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.773913383483887,
-          53.097928157156915
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": 3,
-		    "chapter": "Cotton"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          8.771499395370483,
-          53.09636269341763
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "id": 4,
-		    "chapter": "Port Construction"
+        "name": "Europahafen",
+        "scene": "europahafen",
+        "id": 2
       },
       "geometry": {
         "type": "Point",
@@ -59,29 +35,65 @@
     },
     {
       "type": "Feature",
+      "color": "puce",
       "properties": {
-        "id": 5,
-		    "chapter": "Konsul Smidt"
+        "name": "Speicher XI",
+        "scene": "speicher11",
+        "id": 3
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          8.774042129516602,
-          53.09129226143368
+          8.7715744972229,
+          53.096343366348854
         ]
       }
     },
     {
       "type": "Feature",
+      "color": "puce",
       "properties": {
-        "id": 6,
-		    "chapter": "Final Remarks"
+        "name": "Fabrikenufer",
+        "scene": "fabrikenufer",
+        "id": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.773621022701263,
+          53.09818262016042
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "color": "puce",
+      "properties": {
+        "name": "Waller Wied",
+        "scene": "waller_wied",
+        "id": 5
       },
       "geometry": {
         "type": "Point",
         "coordinates": [
           8.774774372577667,
           53.09397573474871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "color": "puce",
+      "properties": {
+        "name": "Konsul-Smidt-Strasse",
+        "scene": "konsul_smidt_str",
+        "id": 6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.772218227386475,
+          53.09161441592877
         ]
       }
     }

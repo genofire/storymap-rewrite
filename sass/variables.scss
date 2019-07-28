@@ -1,0 +1,40 @@
+// Colors
+$black: rgba(0, 0, 0, 0.95);
+$light-black: lighten($black, 30%);
+$shadow: rgba(0, 0, 0, 0.65);
+
+$white: rgba(255, 255, 255, 0.95);
+$anti-flash: rgba(235, 235, 235, 0.95);
+$highlight: rgba(245, 245, 245, 0.15);
+
+$text-color: #575757;
+
+$lavender-grey: #c1cacc;
+$lavender-alpha: rgba(193, 202, 204, 0.75);
+
+$coconut: #a8573c;
+$jungle: #209488;
+$rhythm: #706d93;
+
+$first-color: $jungle;
+$first-color-light: tint($first-color, 30%);
+$first-color-shadow: shade($first-color, 30%);
+$second-color: $coconut;
+$second-color-light: tint($second-color, 30%);
+$second-color-shadow: shade($second-color, 30%);
+$third-color: $rhythm;
+$third-color-light: tint($third-color, 30%);
+$third-color-shadow: shade($third-color, 30%);
+$third-color-highlight: rgba(#C1BFE0, 0.15);
+
+// Fonts
+$serif: "Neuton", Georgia, serif;
+$sans-serif: "Clear Sans", "Overpass", "Cairo", sans-serif;
+$monospace: "Fira Code", monospace;
+
+$primary-font: $sans-serif;
+$secondary-font: $serif;
+
+// Spacing
+$mobile-space: 10px;
+$desktop-space: 35px;

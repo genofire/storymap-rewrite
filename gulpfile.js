@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 var paths = {
   styles: {
-    src: "sass/styles.sass",
+    src: "sass/styles.scss",
     dest: "css"
   },
   scripts: {
@@ -47,7 +47,7 @@ function watch(done) {
   });
   style();
   gulp.watch(paths.styles.src, style)
-  gulp.watch(["index.html", "js/main.js", "js/components/storymap-rewrite.js"], function(done) {
+  gulp.watch(["index.html", "js/main.js", "js/functions.js", "js/components/storymap-rewrite.js"], function(done) {
     reload();
     done();
   });

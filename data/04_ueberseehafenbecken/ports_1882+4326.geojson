@@ -3,6 +3,11 @@
   "name": "ports_1882+4326",
   "features": [{
     "type": "Feature",
+    "meta": {
+      "panel": "exhibitionpanel",
+      "hex": "#ad7fc7",
+      "color": "eastside"
+    },
     "properties": {
       "fid": 1,
       "id": 1
