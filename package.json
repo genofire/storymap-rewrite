@@ -24,7 +24,9 @@
         "leaflet": "^1.5.1",
         "leaflet-range": "^0.1.5",
         "leaflet.ajax": "^1.1.0",
+        "leaflet.locatecontrol": "^0.67.0",
         "leaflet.pattern": "^0.1.0",
+        "lodash": "^4.17.15",
         "popper.js": "1.14.7"
     },
     "devDependencies": {

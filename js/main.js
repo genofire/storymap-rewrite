@@ -1,6 +1,9 @@
 //
 var stripes_eastside;
 var map;
+var latlng;
+
+var loaded = [];
 
 var circlecolors = {
     puce: '#C77F99',
@@ -36,7 +39,38 @@ function pointToLayer(feature, latlng) {
     }
 }
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
 function onEachFeature(feature, layer) {
+    var point = feature.geometry.coordinates;
+    var coords = L.latLng(point.reverse());
+    var bounds = coords.toBounds(150);
+    var locateControl = map._container.children[1].children[3].children[0]
+
+    setInterval(function(){
+        if (bounds.contains(latlng) && loaded[0] == itemName && $(locateControl).hasClass('active') == true) {
+            map.setView(point, 16);
+            var itemName = feature.properties.scene;
+
+            var loop_before = loop.slice(0, loop.indexOf(itemName))
+            var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
+
+            loop = loop_after.concat(loop_before)
+
+            gotoScene = itemName
+            getSection(sections);
+
+            loaded.push(itemName)
+        }
+    }, 5000);
+
+
     if (feature.properties && feature.properties.name) {
         layer.bindPopup(feature.properties.name);
         layer.on({
@@ -44,7 +78,20 @@ function onEachFeature(feature, layer) {
             // mouseout: hoverOutItem,
             click: onItemClick,
         });
-    }
+    };
+}
+
+function onEnter(feature) {
+    map.setView(point, 16);
+    var itemName = feature.properties.scene;
+
+    var loop_before = loop.slice(0, loop.indexOf(itemName))
+    var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
+
+    loop = loop_after.concat(loop_before)
+
+    gotoScene = itemName
+    getSection(sections);
 }
 
 function hoverInItem(item) {
@@ -58,7 +105,6 @@ function hoverOutItem(item) {
 function onItemClick(item) {
     map.setView(item.latlng, 16)
     var itemName = item.target.feature.properties.scene
-    console.log(item.target.feature.properties.name);
 
     var loop_before = loop.slice(0, loop.indexOf(itemName))
     var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
@@ -281,7 +327,6 @@ $("#audioControl").click(function() {
 
 });
 
-
 // Content Toggle
 function toggleIcon() {
     $("#contentCollapse")
@@ -291,3 +336,8 @@ function toggleIcon() {
 
 $('.section-content').on('hidden.bs.collapse', toggleIcon);
 $('.section-content').on('show.bs.collapse', toggleIcon);
+
+// Geolocation
+navigator.geolocation.getCurrentPosition(function(location) {
+    latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+});

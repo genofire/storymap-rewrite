@@ -9,13 +9,17 @@
 // [X] TODO: Fix Collapse Icon on Navbar
 
 // [0] TODO: Fix Sidebar Scene Selection
-// [0] TODO: 
+// [0] TODO:
 // [0] TODO: Geolocation Bounds
 // [0] TODO: ProgressLine on Map (VectorPath)
 // [0] TODO: Gallery
 // [0] TODO: Fix URLs
 // [0] TODO: Fix Icon Issue on Transparency Slider
 // [0] TODO: long Titles on small Screens
+
+// Firefox Geolocation: https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
+//                      data:application/json,{"location": {"lat": 53.095061318063934, "lng": 8.772915601730347}, "accuracy": 270.0}
+// Fabrikenufer:        data:application/json,{"location": {"lat": 53.09797808356111, "lng": 8.774028718471527}, "accuracy": 270.0}
 
 var loop = [];
 var sections;
@@ -24,6 +28,9 @@ var current;
 var prelast;
 
 var gotoScene = 'navigation';
+
+var latlng;
+var geolocate = false;
 
 (function($) {
 
@@ -34,6 +41,7 @@ var gotoScene = 'navigation';
             triggerpos: '30%',
             navwidget: false,
             legend: true,
+            locate: true,
             loader: true,
             flyto: false,
             slider: false,
@@ -105,6 +113,17 @@ var gotoScene = 'navigation';
             if (settings.zoomControl) {
                 L.control.zoom({
                     position: 'bottomright'
+                }).addTo(map);
+            }
+            
+
+            if (settings.locate) {
+                L.control.locate({
+                    position: 'bottomright',
+                    keepCurrentZoomLevel: true,
+                    returnToPrevBounds: true,
+                    drawCircle: true,
+                    showPopup: false
                 }).addTo(map);
             }
 
