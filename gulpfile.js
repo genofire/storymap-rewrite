@@ -69,9 +69,3 @@ async function dist() {
         .pipe(gulp.dest('./public/libs'));
 }
 exports.dist = dist;
-
-gulp.task(‘minify’, function(){
-    gulp.src(paths.scripts.src)
-        .pipe(uglify())
-        .pipe(gulp.dest(‘dist’));
-});
