@@ -11,7 +11,7 @@
     <title>Storymap Rewrite</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
@@ -31,15 +31,17 @@
     <!-- Icons -->
     <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
 
+    <!-- Jquery -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- LEAFLET -->
     <script src="./node_modules/leaflet/dist/leaflet.js"></script>
     <!--leaflet.ajax for asynchronously adding geojson data-->
     <script src="./node_modules/leaflet.ajax/dist/leaflet.ajax.min.js"></script>
-    <script src="./node_modules/leaflet.pattern/dist/leaflet.pattern.js"></script>
+    <script src="./public/libs/Leaflet.pattern/dist/leaflet.pattern-src.js"></script>
     <script src="./node_modules/leaflet.locatecontrol/src/L.Control.Locate.js"></script>
     <script src="./js/L.Control.Range.js"></script>
 
@@ -91,16 +93,16 @@
                         </div>
                     </nav>
                     <div class="row row-main row-navigation d-flex justify-content-between">
-                        <div class="arrow-left" id="prevSceneLeft">
+                        <div class="arrow-left" id="prevArrow">
                             <a href="#"><i class="arrow-icon icon ion-md-arrow-back"></i></a>
                         </div>
-                        <div class="arrow-right text-right" id="nextSceneRight">
+                        <div class="arrow-right text-right" id="nextArrow">
                             <a href="#"><i class="arrow-icon icon ion-md-arrow-forward"></i></a>
                         </div>
                     </div>
                     <div class="row row-main row-storymap">
                         <div class="col-sm-6 col-md-8 storymap-map"></div>
-                        <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story">
+                        <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story shadow">
                             <section data-scene="navigation">
                             </section>
                             <section data-scene="ueberseetor">

@@ -26,15 +26,16 @@
         "leaflet.ajax": "^1.1.0",
         "leaflet.locatecontrol": "^0.67.0",
         "leaflet.pattern": "^0.1.0",
-        "lodash": "^4.17.15",
-        "popper.js": "1.14.7"
+        "popper.js": "^1.15.0"
     },
     "devDependencies": {
         "autoprefixer": "^9.6.1",
         "browser-sync": "^2.26.7",
         "cssnano": "^4.1.10",
         "gulp": "^4.0.2",
+        "gulp-npm-dist": "^1.0.3",
         "gulp-postcss": "^8.0.0",
+        "gulp-rename": "^1.4.0",
         "gulp-sass": "^4.0.2",
         "gulp-sourcemaps": "^2.6.5"
     }

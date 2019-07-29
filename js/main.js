@@ -1,119 +1,24 @@
-//
 var stripes_eastside;
 var map;
-var latlng;
-
 var loaded = [];
+
+var loop = [];
+var sections;
+
+
+var first = true;
+var current;
+var prelast;
+
+var gotoScene = 'navigation';
+
+var LocateControl;
 
 var circlecolors = {
     puce: '#C77F99',
     blue: '#75b7e3',
     green: '#a1c58a'
-}
-
-// Layer Styling
-function styleFeatures(feature) {
-    return {
-        color: '#878d8e',
-        fillPattern: stripes_eastside,
-        fillOpacity: 0.8,
-        weight: 1,
-        smoothFactor: 1,
-    }
-}
-
-function pointToLayer(feature, latlng) {
-    var style = []
-    for (const [key, value] of Object.entries(circlecolors)) {
-        style[key] = {
-            radius: 16,
-            fillColor: value,
-            color: '#878d8e',
-            fillOpacity: 0.5,
-            opacity: 1,
-            weight: 1,
-        }
-        if (feature.color == key) {
-            return L.circleMarker(latlng, style[key]);
-        }
-    }
-}
-
-function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
-
-function onEachFeature(feature, layer) {
-    var point = feature.geometry.coordinates;
-    var coords = L.latLng(point.reverse());
-    var bounds = coords.toBounds(150);
-    var locateControl = map._container.children[1].children[3].children[0]
-
-    setInterval(function(){
-        if (bounds.contains(latlng) && loaded[0] == itemName && $(locateControl).hasClass('active') == true) {
-            map.setView(point, 16);
-            var itemName = feature.properties.scene;
-
-            var loop_before = loop.slice(0, loop.indexOf(itemName))
-            var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
-
-            loop = loop_after.concat(loop_before)
-
-            gotoScene = itemName
-            getSection(sections);
-
-            loaded.push(itemName)
-        }
-    }, 5000);
-
-
-    if (feature.properties && feature.properties.name) {
-        layer.bindPopup(feature.properties.name);
-        layer.on({
-            mouseover: hoverInItem,
-            // mouseout: hoverOutItem,
-            click: onItemClick,
-        });
-    };
-}
-
-function onEnter(feature) {
-    map.setView(point, 16);
-    var itemName = feature.properties.scene;
-
-    var loop_before = loop.slice(0, loop.indexOf(itemName))
-    var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
-
-    loop = loop_after.concat(loop_before)
-
-    gotoScene = itemName
-    getSection(sections);
-}
-
-function hoverInItem(item) {
-    this.openPopup();
-}
-
-function hoverOutItem(item) {
-    this.closePopup();
-}
-
-function onItemClick(item) {
-    map.setView(item.latlng, 16)
-    var itemName = item.target.feature.properties.scene
-
-    var loop_before = loop.slice(0, loop.indexOf(itemName))
-    var loop_after = loop.slice(loop.indexOf(itemName), loop.length)
-
-    loop = loop_after.concat(loop_before)
-
-    gotoScene = itemName
-    getSection(sections);
-}
+};
 
 const data_route_style = {
     color: '#706d93', // $rhythm
@@ -127,27 +32,9 @@ const data_route_style = {
 var layers = {
     carto_positron: {
         layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
             subdomains: 'abcd',
             maxZoom: 19
-        })
-    },
-    stamen_toner_bg: {
-        layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
-            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            subdomains: 'abcd',
-            minZoom: 0,
-            maxZoom: 20,
-            ext: 'png'
-        })
-    },
-    stamen_terrain: {
-        layer: L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.{ext}', {
-            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            subdomains: 'abcd',
-            minZoom: 0,
-            maxZoom: 20,
-            ext: 'png'
         })
     },
     esri_world: {
@@ -168,10 +55,10 @@ var layers = {
     },
     weserkorrektion: {
         layer: L.tileLayer('./data/05_port_construction/Weserkorrektion_tiles/{z}/{x}/{y}.png', {
+            attribution: "",
             tms: true,
             opacity: 0.1,
             changeOpacity: true,
-            attribution: ""
         })
     },
     ueberseehafenbecken: {
@@ -280,43 +167,27 @@ var scenes = {
 $('#storymap').storymap({
     scenes: scenes,
     baselayer: layers.carto_positron,
-    legend: true,
-    navbar: false,
     loader: true,
     flyto: true,
     slider: false,
     dragging: true,
-    credits: "<i class='icon ion-md-build' style='font-size: 10px;'></i> with <i class='icon ion-md-heart' style='color: red; font-size: 10px;'></i> from Bo Zhao",
-    scalebar: true,
+    credits: "<a href='https://github.com/janebuoy/storymap-rewrite'><i class='icon ion-md-build' style='font-size: 10px;'></i> by Jane Buoy | </a><a href='https://github.com/jakobzhao/storymap'>based on <img src='http://jakobzhao.github.io/storymap/img/logo.png' width='18px' target='_blank' > storymap.js </a>",
+    scalebar: false,
     scrolldown: false,
-    progressline: true,
     zoomControl: true,
-    createMap: function() {
-        map = L.map($('.storymap-map')[0], {
-            zoomControl: false
-        }).setView([53.09460389460539, 8.771724700927736], 15);
-
-        var eastside = '#ad7fc7';
-
-        stripes_eastside = new L.StripePattern({
-            color: eastside,
-            opacity: 1,
-            angle: -10
-        }).addTo(map);
-
-        return map;
-
-    }
+    createMap: createMap
 });
 
 // Sidemenu Toggle
 $('#dismiss, .overlay').click(function() {
     // hide sidebar
+    $('#sidebar').removeClass('shadow');
     $('#sidebar').removeClass('active');
     $('.overlay').removeClass('active');
 });
 
 $('#sidebarCollapse').click(function() {
+    $('#sidebar').toggleClass('shadow');
     $('#sidebar').toggleClass('active');
     $('.overlay').addClass('active');
 });
@@ -336,8 +207,3 @@ function toggleIcon() {
 
 $('.section-content').on('hidden.bs.collapse', toggleIcon);
 $('.section-content').on('show.bs.collapse', toggleIcon);
-
-// Geolocation
-navigator.geolocation.getCurrentPosition(function(location) {
-    latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
-});

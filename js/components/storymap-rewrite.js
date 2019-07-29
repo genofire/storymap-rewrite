@@ -1,36 +1,27 @@
-// Modified by Bo Zhao, zhao2@oregonstate.edu
-// Originally obtained from http://atlefren.github.io/storymap/
-// Updated on 05/04/2018 | version 2.4.0 | MIT License
-
+// Modified by Janne Jensen, janebuoy@posteo.de
+// Originally obtained from https://github.com/jakobzhao/storymap
+// Updated on 29/07/2019 | version 0.7.0 | MIT License
 
 // [X] TODO: Build Sidebar Content dynamically
 // [X] TODO: Leaflet.pattern integration
 // [X] TODO: Transparency Slider (on Rasterlayers)
 // [X] TODO: Fix Collapse Icon on Navbar
+// [X] TODO: Geolocation Bounds
+// [X] TODO: Add Custom Attribution Field
 
+// [0] TODO: Audio Playback
 // [0] TODO: Fix Sidebar Scene Selection
-// [0] TODO:
-// [0] TODO: Geolocation Bounds
 // [0] TODO: ProgressLine on Map (VectorPath)
 // [0] TODO: Gallery
 // [0] TODO: Fix URLs
 // [0] TODO: Fix Icon Issue on Transparency Slider
 // [0] TODO: long Titles on small Screens
 
+
+/// Geolocation Testing
 // Firefox Geolocation: https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
 //                      data:application/json,{"location": {"lat": 53.095061318063934, "lng": 8.772915601730347}, "accuracy": 270.0}
 // Fabrikenufer:        data:application/json,{"location": {"lat": 53.09797808356111, "lng": 8.774028718471527}, "accuracy": 270.0}
-
-var loop = [];
-var sections;
-var first = true;
-var current;
-var prelast;
-
-var gotoScene = 'navigation';
-
-var latlng;
-var geolocate = false;
 
 (function($) {
 
@@ -39,14 +30,11 @@ var geolocate = false;
         var defaults = {
             selector: '[data-scene]',
             triggerpos: '30%',
-            navwidget: false,
-            legend: true,
             locate: true,
             loader: true,
             flyto: false,
             slider: false,
             scalebar: false,
-            progressline: true,
             dragging: true,
             mapinteraction: false,
             zoomControl: false
@@ -97,11 +85,6 @@ var geolocate = false;
                 settings.baselayer.layer.addTo(map);
             }
 
-            if (settings.legend) {
-                $(".storymap").append("<div class='storymap-legend' />")
-
-            }
-
             if (settings.scalebar) {
                 L.control.scale({
                     position: "bottomright",
@@ -115,13 +98,13 @@ var geolocate = false;
                     position: 'bottomright'
                 }).addTo(map);
             }
-            
+
 
             if (settings.locate) {
-                L.control.locate({
+                LocateControl = L.control.locate({
                     position: 'bottomright',
                     keepCurrentZoomLevel: true,
-                    returnToPrevBounds: true,
+                    returnToPrevBounds: false,
                     drawCircle: true,
                     showPopup: false
                 }).addTo(map);
@@ -131,16 +114,6 @@ var geolocate = false;
                 slider.addTo(map);
             }
 
-            if (settings.progressline) {
-                $(".storymap").append("<div class='storymap-progressline' />")
-
-            }
-
-            if (settings.navwidget) {
-                $(".storymap").append("<div class='storymap-navwidget text-center'/>")
-
-            }
-
             if (settings.loader) {
                 $(".storymap").append("<div class='icon ion-md-refresh storymap-loader'></div>")
 
@@ -148,12 +121,9 @@ var geolocate = false;
 
             $(".storymap-map .leaflet-control-attribution")
             .addClass("storymap-attribution")
-            .html("<a href='https://github.com/jakobzhao/storymap'><img src='https://jakobzhao.github.io/storymap/img/logo.png' width='18px' target='_blank' > storymap.js </a>");
-
 
             if (settings.credits) {
-                $(".storymap-attribution").find("a").prepend(settings.credits + " | ");
-
+                $(".storymap-attribution").html(settings.credits)
             }
 
             if (settings.dragging) {
@@ -214,35 +184,12 @@ var geolocate = false;
                 currentLayerGroup.clearLayers();
 
                 var scene = scenes[key];
-                var legendContent = "";
 
-                if (typeof $("section[data-scene='" + key + "']").data("background") !== 'undefined') {
-
-                    $(".storymap-loader").fadeTo(0, 0);
-
-                } else if (typeof $("section[data-scene='" + key + "']").data("background") === 'undefined') {
-
-                    for (var i = 0; i < scene.layers.length; i++) {
-                        $(".storymap-loader").fadeTo(0, 1);
-                        currentLayerGroup.addLayer(scene.layers[i].layer);
-
-                        if (typeof scene.layers[i].legend !== 'undefined') {
-                            legendContent += scene.layers[i].legend;
-                        }
-                    }
-                    $(".storymap-loader").fadeTo(1, 0);
-
+                for (var i = 0; i < scene.layers.length; i++) {
+                    $(".storymap-loader").fadeTo(0, 1);
+                    currentLayerGroup.addLayer(scene.layers[i].layer);
                 }
-
-                // the condition legendContent != "" will make sure the legend will only be added on when there is some contents in the legend.
-                if (settings.legend && legendContent !== "") {
-                    $(".storymap-legend")
-                    .html(legendContent)
-                    .show();
-                } else {
-                    $(".storymap-legend").hide();
-
-                }
+                $(".storymap-loader").fadeTo(1, 0);
 
                 if (scene.slider) {
                     map.addControl(slider);
@@ -257,6 +204,9 @@ var geolocate = false;
                 else {
                     map.removeControl(slider);
                 }
+
+                getMapCredits(scene, layers, settings);
+
 
                 if (scene.flyto == false) {
                     map.setView([scene.lat, scene.lng], scene.zoom, {
@@ -283,25 +233,6 @@ var geolocate = false;
 
             }
 
-            function getSection(sections) {
-
-                $.each(sections, function(key, element) {
-
-                    var section = $(element);
-                    if (section[0].dataset.scene !== gotoScene) {
-                        section.trigger('notviewing');
-                    } else {
-                        section.trigger('viewing');
-                        toggleArrow(current);
-                    };
-                });
-            }
-
-            function buildSections(element, searchfor) {
-                sections = $(element).find(searchfor);
-                getSection(sections);
-            }
-
             //change Title
             function changeTitle(key) {
                 var scene = scenes[key];
@@ -310,7 +241,6 @@ var geolocate = false;
             }
 
             function sortScenes(key, obj) {
-
                 current = sceneKeys[sceneKeys.indexOf(key) % sceneKeys.length]
                 prelast = sceneKeys[loop.length - 2]
             }
@@ -383,17 +313,18 @@ var geolocate = false;
                     };
 
                     $('#sidebar').toggleClass('active');
+                    $('#sidebar').toggleClass('shadow');
                     $('.overlay').removeClass('active');
                 });
 
             });
 
             // Switch Scenes on Left and Right Arrow click
-            $('#nextSceneRight').click(function() {
+            $('#nextArrow').click(function() {
                 showNext(current);
             })
 
-            $('#prevSceneLeft').click(function () {
+            $('#prevArrow').click(function () {
                 showPrevious();
             });
 
