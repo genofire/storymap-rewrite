@@ -4,10 +4,15 @@ $light-black: lighten($black, 30%);
 $shadow: rgba(0, 0, 0, 0.65);
 
 $white: rgba(255, 255, 255, 0.95);
-$anti-flash: rgba(235, 235, 235, 0.95);
+$anti-flash: rgba(253, 253, 253, 1);
 $highlight: rgba(245, 245, 245, 0.15);
+$lowlight: rgba(231, 231, 231, 0.85);
 
-$text-color: #575757;
+$hr: #C0C0C0;
+
+$color-heading: #f4e5c2;
+
+$text-color: #454545;
 
 $lavender-grey: #c1cacc;
 $lavender-alpha: rgba(193, 202, 204, 0.75);
@@ -15,6 +20,9 @@ $lavender-alpha: rgba(193, 202, 204, 0.75);
 $coconut: #a8573c;
 $jungle: #209488;
 $rhythm: #706d93;
+
+$puce: #C77F99;
+$eastside: #ad7fc7;
 
 $first-color: $jungle;
 $first-color-light: tint($first-color, 30%);
@@ -34,6 +42,9 @@ $monospace: "Fira Code", monospace;
 
 $primary-font: $sans-serif;
 $secondary-font: $serif;
+
+$text-size: 1rem;
+$line-height: 1.7rem;
 
 // Spacing
 $mobile-space: 10px;

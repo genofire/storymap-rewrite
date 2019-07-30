@@ -2,27 +2,6 @@
 // Originally obtained from https://github.com/jakobzhao/storymap
 // Updated on 29/07/2019 | version 0.7.0 | MIT License
 
-// [X] TODO: Build Sidebar Content dynamically
-// [X] TODO: Leaflet.pattern integration
-// [X] TODO: Transparency Slider (on Rasterlayers)
-// [X] TODO: Fix Collapse Icon on Navbar
-// [X] TODO: Geolocation Bounds
-// [X] TODO: Add Custom Attribution Field
-
-// [0] TODO: Audio Playback
-// [0] TODO: Fix Sidebar Scene Selection
-// [0] TODO: ProgressLine on Map (VectorPath)
-// [0] TODO: Gallery
-// [0] TODO: Fix URLs
-// [0] TODO: Fix Icon Issue on Transparency Slider
-// [0] TODO: long Titles on small Screens
-
-
-/// Geolocation Testing
-// Firefox Geolocation: https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
-//                      data:application/json,{"location": {"lat": 53.095061318063934, "lng": 8.772915601730347}, "accuracy": 270.0}
-// Fabrikenufer:        data:application/json,{"location": {"lat": 53.09797808356111, "lng": 8.774028718471527}, "accuracy": 270.0}
-
 (function($) {
 
     $.fn.storymap = function(options) {
@@ -266,7 +245,39 @@
                 $.each( sceneNames, function( key, value ) {
                     var li = $('<li></li>')
                     ul.append(li)
-                    li.html("<a href='#" + key + "' data-target='" + key + "'>" + value + "</a>")
+                    if (key == 'navigation') {
+                        li.html("<a href='#" + key + "' data-target='" + key + "'><i class='ion-sidebar-icon icon ion-md-home'></i><span class='spacer'></span>" + value + "</a>")
+                    }
+                    else {
+                        li.html("<a href='#" + key + "' data-target='" + key + "'><i class='fa-sidebar-icon fas fa-circle'></i><span class='spacer'></span>" + value + "</a>")
+                    }
+                    if (key == current) {
+                        $(li).find('i').addClass('active-icon')
+                        $(li).find('i').removeClass('inactive-icon')
+                    }
+                    else {
+                        $(li).find('i').removeClass('active-icon')
+                        $(li).find('i').addClass('inactive-icon')
+                    }
+
+                });
+
+            }
+            function updateSidebar(key, sceneNames) {
+                var ul = $('#sidebarItems')
+                var li = $('ion-sidebar-icon')
+
+                $.each( sceneNames, function( key, value ) {
+                    console.log(li[0]);
+                    // if (key == current) {
+                    //     $(li).find('i').addClass('active-icon')
+                    //     $(li).find('i').removeClass('inactive-icon')
+                    // }
+                    // else {
+                    //     $(li).find('i').removeClass('active-icon')
+                    //     $(li).find('i').addClass('inactive-icon')
+                    // }
+
                 });
 
             }
@@ -279,6 +290,7 @@
 
                 key = $(this).data('scene');
                 sortScenes(key, sceneNames);
+                updateSidebar(key, sceneNames);
                 changeTitle(key);
 
                 $(this)

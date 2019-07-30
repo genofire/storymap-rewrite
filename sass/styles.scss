@@ -1,5 +1,6 @@
 @import "tint+shade";
 @import "variables";
+
 /*  DEMO STYLE */
 body {
     font-family: "Roboto", sans-serif;
@@ -8,14 +9,19 @@ body {
 
 p {
     font-family: $primary-font;
-    font-size: 0.9em;
-    font-weight: 300;
-    line-height: 1.5em;
+    font-size: $text-size;
+    font-weight: 400;
+    line-height: $line-height;
     color: $text-color;
 }
 
 h2 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    color: $text-color;
+    -webkit-text-decoration: $puce double underline;
+    text-decoration: $puce double underline;
+    -webkit-text-decoration-skip: ink;
+    text-decoration-skip: ink;
 }
 
 a {
@@ -63,7 +69,7 @@ a {
 }
 
 .navbar-btn {
-    font-size: 1.25rem !important;
+    font-size: 1.2rem !important;
     line-height: 56px !important;
     font-weight: 500 !important;
 }
@@ -196,15 +202,15 @@ a {
         height: 56px !important;
         margin-right: (-10px) !important;
         margin-top: (-10px) !important;
-        background: $third-color;
+        background: $first-color;
 
         &:active,
         &:focus,
         &:hover,
         &:visited {
             color: #fff;
-            background-color: $third-color !important;
-            border-color: $third-color !important;
+            background-color: $first-color !important;
+            border-color: $first-color !important;
             border: 0;
         }
 
@@ -213,7 +219,7 @@ a {
         }
 
         &:before {
-            background: $third-color-highlight;
+            background: $highlight;
         }
     }
 }
@@ -288,15 +294,20 @@ a {
 }
 
 .icon {
-    font-size: 2rem;
-    height: 1.25rem;
+    font-size: 1.8rem;
+    height: 1.2rem;
     padding: 0;
 }
+
+.play-icon {
+    font-size: 1.4rem;
+}
+
 
 .title {
     color: $white;
     line-height: 56px;
-    margin-left: 44px;
+    margin-left: 12px;
     margin-right: auto;
 }
 
@@ -318,23 +329,82 @@ a {
 }
 
 .arrow-left {
+    display: inline-block;
+    background: rgba(30,30,30,.6);
+    color: $white;
+    border: none;
+    font-size: 1rem;
     position: fixed;
-    top: 50%;
-    bottom: 50%;
-    padding: 15px;
-    margin: auto;
+    height: 38px;
+    width: 38px;
+    top: calc(50% - 56px);
+    bottom: calc(100% - calc(50% - 56px));
+    padding: 7px;
+    margin: 37px 26px 31px 6px;
     z-index: 1;
+
+    div {
+        fill: #CCC;
+
+        &:hover {
+            color: #fff;
+            fill: #fff;
+        }
+    }
+}
+
+.arrow-left:disabled {
+    fill: #888;
+    cursor: default !important;
+    outline: none;
+    div {
+        fill: #888;
+
+        &:hover {
+            color: #888;
+            fill: #888;
+        }
+    }
 }
 
 .arrow-right {
+    display: inline-block;
+    background: rgba(30,30,30,.6);
+    color: $white;
+    border: none;
+    font-size: 1rem;
     position: fixed;
-    left: auto;
     right: 0;
-    top: 50%;
-    bottom: 50%;
-    padding: 15px;
-    margin: auto;
+    height: 38px;
+    width: 38px;
+    top: calc(50% - 56px);
+    bottom: calc(100% - calc(50% - 56px));
+    padding: 7px;
+    margin: 37px 6px 31px 26px;
     z-index: 1;
+
+    div {
+        fill: #CCC;
+
+        &:hover {
+            color: #fff;
+            fill: #fff;
+        }
+    }
+}
+
+.arrow-right:disabled {
+    fill: #888;
+    cursor: default !important;
+    outline: none;
+    div {
+        fill: #888;
+
+        &:hover {
+            color: #888;
+            fill: #888;
+        }
+    }
 }
 
 .leaflet-popup-content-wrapper,
@@ -415,8 +485,18 @@ section {
     padding: 15px;
     font-family: $primary-font !important;
     font-weight: 200 !important;
-    font-size: 18px !important;
+    font-size: 1rem !important;
     color: $text-color !important;
+
+    img {
+        // border: 1px solid #ddd;
+        // border-radius: 0;
+        // padding: 5px;
+        // margin-left: 6px;
+        // margin-right: 6px;
+        // width: 150px;
+        width: 100%
+    }
 }
 /* ---------------------------------------------------
  *    SIDEBAR STYLE
@@ -428,15 +508,15 @@ section {
 }
 
 #sidebar {
-    width: 250px;
+    width: 290px;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
-    margin-left: -250px;
+    margin-left: -290px;
     z-index: 3;
-    background: $third-color;
-    color: $white;
+    background: $anti-flash;
+    color: $text-color;
     transition: all 0.3s;
 
     &.active {
@@ -445,17 +525,30 @@ section {
 
     .sidebar-header {
         padding: 0;
-        background: $third-color;
+        height: 140px;
+        color: $white;
+        background: $first-color;
 
         h3 {
-            font-size: 1.25rem;
+            font-weight: 500;
+            padding-top: 60px;
+            font-size: 1.6rem;
+            line-height: 2rem;
+        }
+
+        .subtitle {
+            color: $white;
+            font-size: 1rem;
+            font-weight: 600;
+            padding-left: 16px;
         }
     }
 
     ul {
         //&.components
-        // padding: 20px 0
-        // border-bottom: 1px solid $third-color-shadow
+        padding: 12px 0;
+        margin-bottom: 12px;
+        border-bottom: 1px solid $lowlight;
         p {
             color: $white;
             padding: 10px;
@@ -463,23 +556,54 @@ section {
 
         li {
             a {
-                padding: 10px;
+                font-size: 1rem;
+                line-height: 2rem;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 10px;
+                padding-left: 20px;
                 font-size: 1.1em;
                 display: block;
 
                 &:hover {
-                    color: $white;
-                    background: $highlight;
+                    color: $text-color;
+                    background: $lowlight;
                 }
             }
 
             &.active > a {
                 color: $white;
-                background: $third-color;
+                background: $third-color-light;
             }
         }
     }
 }
+
+#sidebarAbout {
+    padding-top: 0 !important;
+    border-bottom: 0 !important;
+}
+
+.ion-sidebar-icon {
+    font-size: 1.4rem;
+}
+
+.fa-sidebar-icon {
+    font-size: 1.1rem;
+}
+
+.active-icon {
+    color: $puce;
+}
+
+.inactive-icon {
+    color: $lowlight;
+}
+
+.spacer {
+    padding-left: 20px;
+}
+
 
 a {
     &[aria-expanded="true"] {
@@ -501,7 +625,7 @@ a {
 
 ul {
     ul a {
-        font-size: 0.9em !important;
+        font-size: $text-size !important;
         padding-left: 30px !important;
         background: $third-color;
     }
@@ -511,7 +635,7 @@ ul {
 
         a {
             text-align: center;
-            font-size: 0.9em !important;
+            font-size: $text-size !important;
             display: block;
             border-radius: 5px;
             margin-bottom: 5px;

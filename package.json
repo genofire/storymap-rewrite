@@ -19,14 +19,19 @@
         "url": "https://github.com/janebuoy/storymap-rewrite.git"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.9.0",
         "bootstrap": "4.3.1",
+        "fancybox": "^3.0.1",
+        "ionicons": "^4.6.2",
         "jquery": "3.4.1",
         "leaflet": "^1.5.1",
         "leaflet-range": "^0.1.5",
         "leaflet.ajax": "^1.1.0",
         "leaflet.locatecontrol": "^0.67.0",
         "leaflet.pattern": "^0.1.0",
-        "popper.js": "^1.15.0"
+        "popper.js": "^1.15.0",
+        "remarkable": "^1.7.3",
+        "typeface-source-sans-pro": "0.0.75"
     },
     "devDependencies": {
         "autoprefixer": "^9.6.1",

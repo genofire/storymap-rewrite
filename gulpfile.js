@@ -63,9 +63,9 @@ async function dist() {
     }), {
             base: './node_modules'
         })
-        .pipe(rename(function(path) {
-            path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
-        }))
+        // .pipe(rename(function(path) {
+        //     path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
+        // }))
         .pipe(gulp.dest('./public/libs'));
 }
 exports.dist = dist;

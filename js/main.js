@@ -13,6 +13,7 @@ var prelast;
 var gotoScene = 'navigation';
 
 var LocateControl;
+var markdown = new Remarkable();
 
 var circlecolors = {
     puce: '#C77F99',

@@ -11,43 +11,51 @@
     <title>Storymap Rewrite</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./public/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
 
     <!--leaflet css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./public/libs/leaflet/dist/leaflet.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+    <link rel="stylesheet" href="./public/libs/leaflet.locatecontrol/dist/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="./public/libs/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
 
     <link href="css/L.Control.Range.css" rel="stylesheet">
 
     <!--Font-->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Fira+Code" rel="stylesheet">
+    <link href="./public/libs/typeface-source-sans-pro/index.css" rel="stylesheet">
 
     <!-- Icons -->
-    <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+    <link href="./public/libs/ionicons/dist/css/ionicons.min.css" rel="stylesheet">
 
     <!-- Jquery -->
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./public/libs/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./public/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- LEAFLET -->
-    <script src="./node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="./public/libs/leaflet/dist/leaflet.js"></script>
     <!--leaflet.ajax for asynchronously adding geojson data-->
-    <script src="./node_modules/leaflet.ajax/dist/leaflet.ajax.min.js"></script>
-    <script src="./public/libs/Leaflet.pattern/dist/leaflet.pattern-src.js"></script>
-    <script src="./node_modules/leaflet.locatecontrol/src/L.Control.Locate.js"></script>
+    <script src="./public/libs/leaflet.ajax/dist/leaflet.ajax.min.js"></script>
+    <script src="./public/libs/leaflet.pattern/dist/leaflet.pattern.js"></script>
+    <script src="./public/libs/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
     <script src="./js/L.Control.Range.js"></script>
 
+    <!-- ionicons.js -->
+    <script src="./public/libs/ionicons/dist/ionicons.js"></script>
+
+    <!-- remarkable -->
+    <script src="./public/libs/remarkable/dist/remarkable.min.js"></script>
+
+    <!-- fancybox -->
+    <link rel="stylesheet" href="./public/libs/fancybox/dist/css/jquery.fancybox.css" />
+    <script src="./public/libs/fancybox/dist/js/jquery.fancybox.js"></script>
 
     <!-- Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="./public/libs/popper.js/dist/umd/popper-utils.min.js"></script>
 
     <!-- Storymap -->
     <script src="./js/components/storymap-rewrite.js"></script>
@@ -55,17 +63,25 @@
 </head>
 
 <body>
-
     <div class="wrapper">
         <!-- Sidebar -->
         <div id="sidebar">
             <div class="sidebar-header">
                 <h3 class="heading">Overview</h3>
+                <p class="subtitle">Audioguide & Webmapping</p>
                 <button type="button" id="dismiss" class="btn square square3 btn-info">
                     <i class="icon ion-md-close"></i>
                 </button>
             </div>
             <ul class="list-unstyled components" id="sidebarItems">
+            </ul>
+            <ul class="list-unstyled components" id="sidebarAbout">
+                <li>
+                    <a href="#"><i class="ion-sidebar-icon icon ion-md-settings"></i><span class="spacer"></span>Settings</a>
+                </li>
+                <li>
+                    <a href="#"><i class="ion-sidebar-icon icon ion-md-information-circle"></i><span class="spacer"></span>About</a>
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -80,12 +96,10 @@
                                 <i class="icon ion-md-menu"></i>
                             </button>
                             <a href="#content1" data-toggle="collapse" data-target=".section-content" class="title section-heading">
-                                <button type="button" class="btn btn-info navbar-btn">
-                                    Introduction
-                                </button>
+                                <button type="button" class="btn btn-info navbar-btn"></button>
                             </a>
                             <button type="button" id="audioControl" class="btn square square2 btn-info" data-toggle="play-pause" data-target="" aria-controls="audioControl" aria-expanded="false" aria-label="Play/Pause Audio">
-                                <i class="icon ion-md-play"></i>
+                                <i class="play-icon icon ion-md-play"></i>
                             </button>
                             <button type="button" id="contentCollapse" class="btn square square2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="icon ion-md-arrow-dropup"></i>
@@ -93,131 +107,41 @@
                         </div>
                     </nav>
                     <div class="row row-main row-navigation d-flex justify-content-between">
-                        <div class="arrow-left" id="prevArrow">
-                            <a href="#"><i class="arrow-icon icon ion-md-arrow-back"></i></a>
-                        </div>
-                        <div class="arrow-right text-right" id="nextArrow">
-                            <a href="#"><i class="arrow-icon icon ion-md-arrow-forward"></i></a>
-                        </div>
+                        <button class="arrow-left" id="prevArrow">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.28 15.7l-1.34 1.37L5 12l4.94-5.07 1.34 1.38-2.68 2.72H19v1.94H8.6z"></path></svg>
+                            </div>
+                        </button>
+                        <button class="arrow-right text-right" id="nextArrow">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.4 12.97l-2.68 2.72 1.34 1.38L19 12l-4.94-5.07-1.34 1.38 2.68 2.72H5v1.94z"></path></svg>
+                            </div>
+                        </button>
                     </div>
                     <div class="row row-main row-storymap">
                         <div class="col-sm-6 col-md-8 storymap-map"></div>
                         <div class="col-sm-6 col-md-4 align-self-end d-flex storymap-story shadow">
-                            <section data-scene="navigation">
-                            </section>
+                            <section data-scene="navigation"></section>
                             <section data-scene="ueberseetor">
-                                <div class="show section-content" id="ueberseetorContent">
-                                    <p>
-                                        Bevor es richtig losgeht: Warum überhaupt eine Stadtführung zu Kolonialismus
-                                        in der Überseestadt? Zum einen wäre die Geschichte Bremens ohne die Beteiligung
-                                        am Kolonialismus völlig anders verlaufen. Zum anderen sind Häfen immer in
-                                        besonderer Weise Teil kolonialer Beziehungsgeflechte. Die heutige Überseestadt ist
-                                        aus dem ehemaligen Hafen entstanden.
-                                    </p>
-                                    <h2>Bremen als koloniale Stadt in vier Phasen</h2>
-                                    <p>
-                                        Die deutsche Kolonialvergangenheit wird häufig als kurz und unwichtig abgetan.
-                                        Dabei zeigt gerade die Geschichte von Hafen- und Handelsstädten wie Bremen, dass
-                                        der Kolonialismus Politik, Wirtschaft und Gesellschaft seit über 400 Jahren auf
-                                        unterschiedliche Weise prägt. Orte, von denen der Kolonialismus ausging, werden
-                                        koloniale Metropole genannt. Es bietet sich an die Geschichte des Kolonialismus
-                                        in 4 Phasen zu unterteilen, die in einem Zeitstrahl dargestellt sind.
-                                    </p>
-                                    <h2>Hafen als spezifischer Ort dieses Verhältnisses aufgrund von Hafenbau und Handelsbeziehungen</h2>
-                                    <p>
-                                        Dass wir diesen Rundgang durch die Überseestadt machen, ist kein Zufall. Für Bremens
-                                        Kolonialgeschichte und postkoloniale Gegenwart spielt der Hafen eine wichtige Rolle.
-                                        Die stadtbremischen Häfen wurden zwischen 1880 und 1912 gebaut - in der Hochphase
-                                        des deutschen Kolonialismus. Sie waren als Infrastruktur Voraussetzung des kolonialen
-                                        Handels. Dadurch steht die Überseestadt mit den Produktionsbedingungen von Kaffee,
-                                        Baumwolle oder Reis an entfernten Orten in Beziehung.
-                                    <br></br>
-                                        Im Stadtrundgang werden koloniale Handelsbeziehungen in Vergangenheit und Gegenwart,
-                                        die beteiligen Akteur*innen und Waren sichtbar gemacht. Auf den nebenstehenden Karten
-                                        kannst du dir einen Eindruck über die kolonialen Verbindungen Bremens „nach
-                                        Übersee“ verschaffen.
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="europahafen">
-                                <div class="show section-content" id="europahafenContent">
-                                    <p>
-                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                                        <br></br>
-                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                                        voluptua.
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="weserkorrektion">
-                                <div class="show section-content" id="weserkorrektionContent">
-                                    <p>
-                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                                        <br></br>
-                                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
-                                        eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                                        voluptua.
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="speicher11">
-                                <div class="show section-content" id="speicher11Content">
-                                    <p>
-                                        At vero eos et accusam et justo duo dolores et ea rebum. Stet
-                                        clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
-                                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-                                        nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                                        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-                                        <br></br>
-                                        <!-- TODO -->
-                                        <!-- Style as Switch, see: https://github.com/Bttstrp/bootstrap-switch -->
-                                        <!-- Add Functionality -->
-                                        <span class="customSwitch">
-                                            <input type="checkbox" class="switch" id="customSwitch">
-                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
-                                        </span>
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="fabrikenufer">
-                                <div class="show section-content" id="fabrikenuferContent">
-                                    <p>
-                                        <span class="customSwitch">
-                                            <input type="checkbox" class="switch" id="customSwitch">
-                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
-                                        </span>
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="waller_wied">
-                                <div class="show section-content" id="waller_wiedContent">
-                                    <p>
-                                        <span class="customSwitch">
-                                            <input type="checkbox" class="switch" id="customSwitch">
-                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
-                                        </span>
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                             <section data-scene="konsul_smidt_str">
-                                <div class="show section-content" id="konsul_smidt_strContent">
-                                    <p>
-
-                                        <span class="customSwitch">
-                                            <input type="checkbox" class="switch" id="customSwitch">
-                                            <label for="switch">Show/Hide GeoJSON Overlay</label>
-                                        </span>
-                                    </p>
-                                </div>
+                                <div class="show section-content"></div>
                             </section>
                         </div>
                     </div>
@@ -229,6 +153,6 @@
         <div class="overlay"></div>
         <!-- Menu Toggle Script -->
         <script src="./js/main.js" charset="utf-8"></script>
-</body>
+    </body>
 
-</html>
+    </html>

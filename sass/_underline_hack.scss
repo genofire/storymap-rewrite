@@ -1,0 +1,60 @@
+// Disabled in style.scss
+
+/* This would go to index.twig
+
+<!-- Add SVG Filter Underlines -->
+<svg class="visuallyHidden">
+
+  <!-- Base 0.0 to 1.0 values on the size of the bounding box.
+       Essentially turn them into viewport units or percentages. -->
+  <filter id="svg-underline" primitiveUnits="objectBoundingBox">
+
+    <!-- Take the original image (the text) and expand it a little
+         horizontally and a little more vertically. Then store it
+         in a new layer. -->
+    <feMorphology in="SourceGraphic" operator="dilate" radius="0.0075 0.05" result="outline"></feMorphology>
+
+    <!-- Make a blue rectangle that’s 3% tall and 100% wide and expand it
+         a little horizontally and a position it below the original text. -->
+    <feFlood flood-color="#f4e5c2" width="1" height="0.05" x="0" y="0.85" result="underline"></feFlood>
+
+    <!-- Take the blue rectange and use the expanded text layer to mask
+         out the parts we don’t want. This is where it skips descenders. -->
+    <feComposite in="underline" in2="outline" operator="out" result="underline"></feComposite>
+
+    <!-- Now stack the underline and the original text for export. -->
+    <feMerge>
+      <feMergeNode in="underline"></feMergeNode>
+      <feMergeNode in="SourceGraphic"></feMergeNode>
+    </feMerge>
+  </filter>
+</svg>
+
+*/
+
+h2 {
+  // Use the default underline for browsers that
+  // don’t support @supports (<= IE11)
+  text-decoration: underline;
+
+  // Use the filter in browsers that support @supports, but aren’t Safari
+  @supports not (-webkit-text-decoration-skip: objects) {
+    filter: url('#svg-underline');
+    text-decoration: none;
+  }
+
+  // And then disable the filter in Edge and
+  // use the default underline instead
+  @supports (-ms-ime-align: auto) {
+    color: red;
+    filter: none;
+    text-decoration: underline;
+  }
+}
+
+.visuallyHidden {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  width: 1px;
+}

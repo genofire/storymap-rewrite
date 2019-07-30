@@ -1,4 +1,3 @@
-//
 function createMap() {
     map = L.map($('.storymap-map')[0], {
         zoomControl: false,
@@ -135,17 +134,55 @@ function getSection(sections) {
 }
 
 function buildSections(element, searchfor) {
+    loadContent(sections);
     sections = $(element).find(searchfor);
     getSection(sections);
 }
 
+function loadContent(sections) {
+    $.each(sections, function(key, element) {
+        var section = $(element)
+        var sectionContent = $(section).find('.section-content');
+        var scene = section[0].dataset.scene;
+        var content;
+
+        if (sectionContent.length != 0) {
+            fetch('./data/content/' + scene + '.md')
+            .then(response => response.text())
+            .then(content => {
+                $(sectionContent[0]).html(markdown.render(content));
+                var images = $(sectionContent[0]).find('img');
+                if (images.length != 0) {
+                    for (var [key, value] of Object.entries(images)) {
+                        var src = $(value).attr('src');
+                        $(value).wrap( "<a data-fancybox='"+ scene +"Gallery' href='" + src + "'></a>" );
+                        // Initialize Fancybox
+                        $("[data-fancybox='"+ scene +"Gallery']").fancybox({
+                            toolbar: false
+                        });
+                    }
+                }
+
+            });
+
+        };
+
+    });
+}
+
 function toggleArrow(key) {
     if (first) {
-        $('#prevArrow').addClass('invisible');
+        $('#prevArrow').prop("disabled", true);
         first = false;
     }
     else {
-        $('#prevArrow').removeClass('invisible');
+        $('#prevArrow').prop("disabled", false);
+    }
+    if (key == prelast) {
+        $('#nextArrow').html("<a href='#'><i class='fas fa-home'></i></a>");
+    }
+    else {
+        $('#nextArrow').html("<div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M15.4 12.97l-2.68 2.72 1.34 1.38L19 12l-4.94-5.07-1.34 1.38 2.68 2.72H5v1.94z'></path></svg></div>");
     }
 }
 
@@ -158,11 +195,6 @@ function showNext(key) {
     }
     gotoScene = nextItem(key)
     getSection(sections);
+    toggleArrow(key);
 
-    if (key == prelast) {
-        $('#nextArrow').html("<a href='#'><i class='arrow-icon icon ion-md-home'></i></a>");
-    }
-    else {
-        $('#nextArrow').html("<a href='#'><i class='arrow-icon icon ion-md-arrow-forward'></i></a>");
-    }
 }
