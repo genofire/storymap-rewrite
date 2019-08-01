@@ -12,50 +12,38 @@
 
     <!-- Bootstrap core CSS -->
     <link href="./public/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="css/styles.css" rel="stylesheet">
-
     <!--leaflet css-->
     <link rel="stylesheet" href="./public/libs/leaflet/dist/leaflet.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
     <link rel="stylesheet" href="./public/libs/leaflet.locatecontrol/dist/L.Control.Locate.min.css">
     <link rel="stylesheet" href="./public/libs/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
-
-    <link href="css/L.Control.Range.css" rel="stylesheet">
-
-    <!--Font-->
+    <!--Source Sans Pro -->
     <link href="./public/libs/typeface-source-sans-pro/index.css" rel="stylesheet">
-
-    <!-- Icons -->
+    <!-- Ionicons CSS -->
     <link href="./public/libs/ionicons/dist/css/ionicons.min.css" rel="stylesheet">
+    <!-- Fotorama -->
+    <link href="./public/libs/fotorama/fotorama.css" rel="stylesheet">
+
+
 
     <!-- Jquery -->
     <script src="./public/libs/jquery/dist/jquery.min.js"></script>
-
     <!-- Bootstrap core JavaScript -->
     <script src="./public/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
     <!-- LEAFLET -->
     <script src="./public/libs/leaflet/dist/leaflet.js"></script>
-    <!--leaflet.ajax for asynchronously adding geojson data-->
     <script src="./public/libs/leaflet.ajax/dist/leaflet.ajax.min.js"></script>
     <script src="./public/libs/leaflet.pattern/dist/leaflet.pattern.js"></script>
     <script src="./public/libs/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
     <script src="./js/L.Control.Range.js"></script>
-
-    <!-- ionicons.js -->
-    <script src="./public/libs/ionicons/dist/ionicons.js"></script>
-
-    <!-- remarkable -->
-    <script src="./public/libs/remarkable/dist/remarkable.min.js"></script>
-
-    <!-- fancybox -->
-    <link rel="stylesheet" href="./public/libs/fancybox/dist/css/jquery.fancybox.css" />
-    <script src="./public/libs/fancybox/dist/js/jquery.fancybox.js"></script>
-
-    <!-- Popper -->
-    <script src="./public/libs/popper.js/dist/umd/popper-utils.min.js"></script>
+    <!-- Ionicons.js -->
+    <script nomodule="" src="./public/libs/ionicons/dist/ionicons.js"></script>
+    <!-- markdown-it -->
+    <script src="./public/libs/markdown-it/dist/markdown-it.min.js"></script>
+    <!-- fotorama -->
+    <script src="./public/libs/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
     <!-- Storymap -->
     <script src="./js/components/storymap-rewrite.js"></script>
@@ -69,7 +57,7 @@
             <div class="sidebar-header">
                 <h3 class="heading">Overview</h3>
                 <p class="subtitle">Audioguide & Webmapping</p>
-                <button type="button" id="dismiss" class="btn square square3 btn-info">
+                <button type="button" id="dismiss" class="btn square cricle3 btn-info">
                     <i class="icon ion-md-close"></i>
                 </button>
             </div>
@@ -92,16 +80,16 @@
                 <div id="storymap" class="container-fluid">
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
                         <div class="container-fluid">
-                            <button type="button" id="sidebarCollapse" class="btn square square2 btn-info">
+                            <button type="button" id="sidebarCollapse" class="btn square cricle2 btn-info">
                                 <i class="icon ion-md-menu"></i>
                             </button>
                             <a href="#content1" data-toggle="collapse" data-target=".section-content" class="title section-heading">
                                 <button type="button" class="btn btn-info navbar-btn"></button>
                             </a>
-                            <button type="button" id="audioControl" class="btn square square2 btn-info" data-toggle="play-pause" data-target="" aria-controls="audioControl" aria-expanded="false" aria-label="Play/Pause Audio">
+                            <button type="button" id="audioControl" class="btn square cricle2 btn-info" data-toggle="play-pause" data-target="" aria-controls="audioControl" aria-expanded="false" aria-label="Play/Pause Audio">
                                 <i class="play-icon icon ion-md-play"></i>
                             </button>
-                            <button type="button" id="contentCollapse" class="btn square square2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                            <button type="button" id="contentCollapse" class="btn square cricle2 btn-info" data-toggle="collapse" data-target=".section-content" aria-controls="contentCollapse" aria-expanded="false" aria-label="Toggle navigation">
                                 <i class="icon ion-md-arrow-dropup"></i>
                             </button>
                         </div>
@@ -131,6 +119,9 @@
                             <section data-scene="weserkorrektion">
                                 <div class="show section-content"></div>
                             </section>
+                            <section data-scene="bremerhaven">
+                                <div class="show section-content"></div>
+                            </section>
                             <section data-scene="speicher11">
                                 <div class="show section-content"></div>
                             </section>
@@ -138,6 +129,9 @@
                                 <div class="show section-content"></div>
                             </section>
                             <section data-scene="waller_wied">
+                                <div class="show section-content"></div>
+                            </section>
+                            <section data-scene="industriehaefen">
                                 <div class="show section-content"></div>
                             </section>
                             <section data-scene="konsul_smidt_str">

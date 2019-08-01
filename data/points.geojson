@@ -3,7 +3,9 @@
   "features": [
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Überseetor",
         "scene": "ueberseetor",
@@ -19,7 +21,9 @@
     },
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Europahafen",
         "scene": "europahafen",
@@ -35,7 +39,9 @@
     },
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Speicher XI",
         "scene": "speicher11",
@@ -51,7 +57,9 @@
     },
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Fabrikenufer",
         "scene": "fabrikenufer",
@@ -67,7 +75,9 @@
     },
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Waller Wied",
         "scene": "waller_wied",
@@ -83,7 +93,9 @@
     },
     {
       "type": "Feature",
-      "color": "puce",
+      "meta": {
+        "color": "puce"
+      },
       "properties": {
         "name": "Konsul-Smidt-Strasse",
         "scene": "konsul_smidt_str",

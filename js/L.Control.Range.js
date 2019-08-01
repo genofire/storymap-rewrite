@@ -21,7 +21,7 @@ L.Control.Range = L.Control.extend({
         var container = L.DomUtil.create('div', 'leaflet-range-control leaflet-bar ' + this.options.orient);
         if (this.options.icon) {
           var span = L.DomUtil.create('span', this.options.iconClass, container);
-          $(span).html("<i class='icon ion-md-eye'>");
+          // $(span).html("<i class='icon ion-md-eye'>");
         };
         var slider = L.DomUtil.create('input', '', container);
         slider.type = 'range';

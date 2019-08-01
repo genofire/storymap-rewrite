@@ -5,18 +5,18 @@ var loaded = [];
 var loop = [];
 var sections;
 
-
 var first = true;
-var current;
 var prelast;
 
-var gotoScene = 'navigation';
+var targetScene = 'navigation';
 
-var LocateControl;
-var markdown = new Remarkable();
+let LocateControl;
 
-var circlecolors = {
+const markdown = window.markdownit();
+
+const circlecolors = {
     puce: '#C77F99',
+    red: '#C77F99',
     blue: '#75b7e3',
     green: '#a1c58a'
 };
@@ -30,7 +30,7 @@ const data_route_style = {
 };
 
 // Setup leaflet layers
-var layers = {
+const layers = {
     carto_positron: {
         layer: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -50,7 +50,13 @@ var layers = {
     },
     data_points: {
         layer: L.geoJson.ajax('./data/points.geojson', {
-            onEachFeature: onEachFeature,
+            onEachFeature: onEachPoint,
+            pointToLayer: pointToLayer
+        }),
+    },
+    data_streets: {
+        layer: L.geoJson.ajax('./data/streets.geojson', {
+            onEachFeature: onEachStreet,
             pointToLayer: pointToLayer
         }),
     },
@@ -85,13 +91,13 @@ var layers = {
 };
 
 // Setup Scenes/Chapters
-var scenes = {
+const scenes = {
     navigation: {
         lat: 53.09460389460539,
         lng: 8.771724700927736,
         zoom: 15,
         layers: [layers.data_route, layers.data_points],
-        flyto: false,
+        flyto: true,
         navigation: true,
         name: "Navigation"
     },
@@ -102,7 +108,7 @@ var scenes = {
         slider: false, // also chane changeOpacity: true in Layer
         layers: [layers.ueberseehafenbecken, layers.data_route, layers.data_points],
         flyto: true,
-        navigateTo: false,
+        navigateTo: true,
         name: "Überseetor",
     },
     europahafen: {
@@ -111,7 +117,7 @@ var scenes = {
         zoom: 17,
         slider: false,
         flyto: true,
-        navigateTo: false,
+        navigateTo: true,
         layers: [layers.data_route, layers.data_points],
         name: "Europahafen",
     },
@@ -125,13 +131,23 @@ var scenes = {
         layers: [layers.esri_world, layers.weserkorrektion],
         name: "Weserkorrektion",
     },
+    bremerhaven: {
+        lat: 53.5399,
+        lng: 8.5017,
+        zoom: 12,
+        slider: true,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.esri_world, layers.weserkorrektion],
+        name: "Bremerhaven",
+    },
     speicher11: {
         lat: 53.096343366348854,
         lng: 8.7715744972229,
         zoom: 17,
         flyto: true,
         slider: false,
-        navigateTo: false,
+        navigateTo: true,
         layers: [layers.data_route, layers.data_points],
         name: "Speicher XI",
     },
@@ -140,7 +156,7 @@ var scenes = {
         lng: 8.773621022701263,
         zoom: 17,
         flyto: true,
-        navigateTo: false,
+        navigateTo: true,
         layers: [layers.data_route, layers.data_points],
         name: "Fabrikenufer",
     },
@@ -149,26 +165,38 @@ var scenes = {
         lng: 8.774774372577667,
         zoom: 17,
         flyto: true,
-        navigateTo: false,
+        navigateTo: true,
         layers: [layers.data_route, layers.data_points],
         name: "Waller Wied",
+    },
+    industriehaefen: {
+        lat: 53.1252,
+        lng: 8.7305,
+        zoom: 14,
+        flyto: true,
+        navigateTo: false,
+        layers: [layers.data_route, layers.data_streets],
+        name: "Industriehäfen",
     },
     konsul_smidt_str: {
         lat: 53.09161441592877,
         lng: 8.772218227386475,
         zoom: 17,
         flyto: true,
-        navigateTo: false,
+        navigateTo: true,
         layers: [layers.data_route, layers.data_points],
         name: "Konsul-Smidt-Straße",
     }
 };
-
+console.log(loop);
+$(window).on('hashchange', function(e) {
+  backInHistory()
+});
 
 $('#storymap').storymap({
     scenes: scenes,
     baselayer: layers.carto_positron,
-    loader: true,
+    loader: false,
     flyto: true,
     slider: false,
     dragging: true,

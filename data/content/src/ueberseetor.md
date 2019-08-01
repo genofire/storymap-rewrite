@@ -23,7 +23,9 @@ des deutschen Kolonialismus. Sie waren als Infrastruktur Voraussetzung des kolon
 Handels. Dadurch steht die Überseestadt mit den Produktionsbedingungen von Kaffee,
 Baumwolle oder Reis an entfernten Orten in Beziehung.
 
-![Laden und Löschen, Memphis](https://www.ak-hafen.de/mapping/data/03_cotton/images/memphis.png "Beladen der Missisippi Dampfer in Memphis")
+![Laden und Löschen, Memphis](./data/content/images/mini/memphis.png "Beladen der Missisippi Dampfer in Memphis")
+
+![Landeplatz Little Rock](./data/content/images/mini/little_rock.png "Landeplatz Little Rock, Arkansas")
 
 Im Stadtrundgang werden koloniale Handelsbeziehungen in Vergangenheit und Gegenwart,
 die beteiligen Akteur*innen und Waren sichtbar gemacht. Auf den nebenstehenden Karten

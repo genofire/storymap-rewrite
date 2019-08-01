@@ -21,7 +21,8 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
         "bootstrap": "4.3.1",
-        "fancybox": "^3.0.1",
+        "chocolat": "^0.4.21",
+        "fotorama": "^4.6.4",
         "ionicons": "^4.6.2",
         "jquery": "3.4.1",
         "leaflet": "^1.5.1",
@@ -29,8 +30,8 @@
         "leaflet.ajax": "^1.1.0",
         "leaflet.locatecontrol": "^0.67.0",
         "leaflet.pattern": "^0.1.0",
+        "markdown-it": "^9.0.1",
         "popper.js": "^1.15.0",
-        "remarkable": "^1.7.3",
         "typeface-source-sans-pro": "0.0.75"
     },
     "devDependencies": {
@@ -38,6 +39,9 @@
         "browser-sync": "^2.26.7",
         "cssnano": "^4.1.10",
         "gulp": "^4.0.2",
+        "gulp-image-resize": "^0.13.1",
+        "gulp-markdown": "^4.0.0",
+        "gulp-markdownit": "^1.0.3",
         "gulp-npm-dist": "^1.0.3",
         "gulp-postcss": "^8.0.0",
         "gulp-rename": "^1.4.0",

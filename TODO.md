@@ -6,15 +6,20 @@
 - [X] Fix Collapse Icon on Navbar
 - [X] Geolocation Bounds
 - [X] Add Custom Attribution Field
+- [x] Fix Sidebar Scene Selection
+- [x] Browser History
 
+- [ ] Stations should start w/ Text collapsed
 - [ ] Audio Playback
 - [ ] Remove IconToggle on empty Sections
-- [ ] Fix Sidebar Scene Selection
 - [ ] ProgressLine on Map (VectorPath)
 - [ ] Gallery
-- [ ] Fix URLs
 - [ ] Fix Icon Issue on Transparency Slider
 - [ ] long Titles on small Screens
+- [ ] move to native/cross-platform framework
+- [ ] redesign left/right arrows
+- [ ] decide what should happen on first and last scene (how to navigate)
+- [ ] do not scroll section when scrolling sidebar
 
 
 ### Geolocation Testing
@@ -33,6 +38,13 @@ https://location.services.mozilla.com/v1/geolocate?key=%MOZILLA_API_KEY%
 ```javascript
 data:application/json,{"location": {"lat": 53.095061318063934, "lng": 8.772915601730347}, "accuracy": 270.0}
 ```
+
+#### Überseetor (in bounds)
+
+```javascript
+data:application/json,{"location": {"lat": 53.09422055711675, "lng": 8.771351873874664}, "accuracy": 270.0}
+```
+
 #### Fabrikenufer
 
 ```javascript
