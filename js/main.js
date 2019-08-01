@@ -188,7 +188,6 @@ const scenes = {
         name: "Konsul-Smidt-Straße",
     }
 };
-console.log(loop);
 $(window).on('hashchange', function(e) {
   backInHistory()
 });

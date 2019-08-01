@@ -170,16 +170,16 @@ function generateList(key, sceneNames, sceneKeys, current) {
     let li = $('<li></li>')
     ul.append(li)
     if (count == 0) {
-      li.html("<a href='#' data-target='" + key + "'><i class='ion-sidebar-icon icon ion-md-home'></i><span class='spacer'></span>" + value + "</a>")
+      li.html("<a href='#" + key + "' data-target='" + key + "'><i class='ion-sidebar-icon icon ion-md-home'></i><span class='spacer'></span>" + value + "</a>")
     }
     else if (count == length - 1) {
-      li.html("<a href='#' data-target='" + key + "'><i class='fa-sidebar-icon fas fa-flag-checkered'></i><span class='spacer'></span>" + value + "</a>")
+      li.html("<a href='#" + key + "' data-target='" + key + "'><i class='fa-sidebar-icon fas fa-flag-checkered'></i><span class='spacer'></span>" + value + "</a>")
     } else {
       if (scenes[key].navigateTo == false) {
-        li.html("<a href='#' data-target='" + key + "'><i class='ion-sidebar-icon icon ion-md-return-right'></i></i><span class='spacer'></span>" + value + "</a>")
+        li.html("<a href='#" + key + "' data-target='" + key + "'><i class='ion-sidebar-icon icon ion-md-return-right'></i></i><span class='spacer'></span>" + value + "</a>")
         li.wrap('<ul class="sidebarSub"></ul>')
       } else {
-        li.html("<a href='#' data-target='" + key + "'><i class='fa-sidebar-icon fas fa-circle'><i class='icon-number'>" + count + "</i></i><span class='spacer'></span>" + value + "</a>")
+        li.html("<a href='#" + key + "' data-target='" + key + "'><i class='fa-sidebar-icon fas fa-circle'><i class='icon-number'>" + count + "</i></i><span class='spacer'></span>" + value + "</a>")
       }
     }
 
@@ -204,6 +204,7 @@ function activateList(list, key, sceneNames, sceneKeys, current) {
     let itemName = value.dataset.target
 
     $(value).click(function() {
+
       let loop_before = loop.slice(0, loop.indexOf(itemName));
       let loop_after = loop.slice(loop.indexOf(itemName), loop.length);
 
@@ -296,7 +297,7 @@ function showPrevious() {
   }
   targetScene = prevItem()
   getSection(sections);
-  console.log(loop);
+
 }
 
 function showNext(key) {
@@ -311,15 +312,13 @@ function showNext(key) {
 
   getSection(sections);
   toggleArrow(key);
-  console.log(loop);
+
 }
 
 function backInHistory() {
-  console.log( 'hash changed' );
-  console.log(window.location.hash.substr(1));
 
   let key = window.location.hash.substr(1);
-  console.log(loop);
+
 
   let loop_before = loop.slice(0, loop.indexOf(key));
   let loop_after = loop.slice(loop.indexOf(key), loop.length);
@@ -328,5 +327,5 @@ function backInHistory() {
 
   targetScene = key;
   getSection(sections);
-  console.log(loop);
+
 }
