@@ -1,10 +1,14 @@
+/**************************/
+/*       MAP RELATED      */
+/**************************/
+
 function createMap() {
   map = L.map($('.storymap-map')[0], {
     zoomControl: false,
     attributionControl: false
   }).setView([53.09460389460539, 8.771724700927736], 15);
 
-  var eastside = '#ad7fc7';
+  const eastside = '#ad7fc7';
 
   stripes_eastside = new L.StripePattern({
     color: eastside,
@@ -13,7 +17,6 @@ function createMap() {
   }).addTo(map);
 
   return map;
-
 }
 
 // Layer Styling
@@ -23,12 +26,12 @@ function styleFeatures(feature) {
     fillPattern: stripes_eastside,
     fillOpacity: 0.8,
     weight: 1,
-    smoothFactor: 1,
+    smoothFactor: 1
   };
 }
 
 function pointToLayer(feature, latlng) {
-  var style = [];
+  let style = [];
   for (var [key, value] of Object.entries(circlecolors)) {
     style[key] = {
       radius: 16,
@@ -45,27 +48,27 @@ function pointToLayer(feature, latlng) {
 }
 
 function onEachPoint(feature, layer) {
-  var point = feature.geometry.coordinates;
-  var bounds = L.latLng(point.reverse()).toBounds(150);
+  let point = feature.geometry.coordinates;
+  let bounds = L.latLng(point.reverse()).toBounds(150);
 
   setInterval(function () {
     // Check if L.Control.Locate is activated
     if (LocateControl._active) {
-      var latlng = LocateControl._event.latlng;
-      var itemName = feature.properties.scene;
-      if (latlng != undefined && bounds.contains(latlng) && !loaded.includes(itemName)) {
+      let latlng = LocateControl._event.latlng;
+      let sceneName = feature.properties.scene;
+      if (latlng != undefined && bounds.contains(latlng) && !visited.includes(sceneName)) {
         map.setView(point, 16);
 
-        var loop_before = loop.slice(0, loop.indexOf(itemName));
-        var loop_after = loop.slice(loop.indexOf(itemName), loop.length);
+        let loop_before = loop.slice(0, loop.indexOf(sceneName));
+        let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
 
         loop = loop_after.concat(loop_before);
 
-        targetScene = itemName;
+        targetScene = sceneName;
         getSection(sections);
 
-        // Prohibit Scene to be loaded again
-        loaded.push(itemName);
+        // Prohibit Scene to be visited again
+        visited.push(sceneName);
 
       }
     }
@@ -99,14 +102,14 @@ function onEachStreet(feature, layer) {
 
 function onItemClick(item) {
   map.setView(item.latlng, 16);
-  var itemName = item.target.feature.properties.scene;
+  let sceneName = item.target.feature.properties.scene;
 
-  var loop_before = loop.slice(0, loop.indexOf(itemName));
-  var loop_after = loop.slice(loop.indexOf(itemName), loop.length);
+  let loop_before = loop.slice(0, loop.indexOf(sceneName));
+  let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
 
   loop = loop_after.concat(loop_before);
 
-  targetScene = itemName;
+  targetScene = sceneName;
   getSection(sections);
 }
 
@@ -118,7 +121,7 @@ function getMapCredits(scene, layers, settings) {
       class: 'leaflet-control-attribution leaflet-control'
     }));
 
-  var attribution = $('.leaflet-control-attribution');
+  let attribution = $('.leaflet-control-attribution');
 
   if (settings.credits) {
     $(attribution[0]).html(settings.credits + " | " + layers.carto_positron.layer.options.attribution);
@@ -133,10 +136,44 @@ function getMapCredits(scene, layers, settings) {
   }
 }
 
-function getSection(sections) {
+/**************************/
+/*        STORYMAP        */
+/**************************/
+
+function buildSections(element, searchfor) {
+  loadContent(sections);
+  sections = $(element).find(searchfor);
+  getSection(sections);
+}
+
+function loadContent(sections) {
+
   $.each(sections, function (key, element) {
 
-    var section = $(element);
+    let section = $(element)
+    let sectionContent = $(section).find('.section-content');
+    let sceneName = section[0].dataset.scene;
+
+    if (sectionContent.length != 0) {
+
+      fetch('./data/content/dist/' + sceneName + '.html')
+        .then(response => response.text())
+        .then(content => {
+
+          $(sectionContent[0]).html(content);
+        });
+    };
+
+  });
+}
+
+function getSection(sections) {
+
+  $.each(sections, function (key, element) {
+
+    let section = $(element);
+    // Keep for Development
+    let sectionContent = $(element).children('.section-content')
     if (section[0].dataset.scene !== targetScene) {
       section.trigger('notviewing');
     } else {
@@ -147,18 +184,75 @@ function getSection(sections) {
   });
 }
 
-function buildSections(element, searchfor) {
-  loadContent(sections);
-  sections = $(element).find(searchfor);
+
+function changeTitle(key) {
+  let scene = scenes[key];
+  $('a[class^="title section-heading"]').children().html(scene.name);
+}
+
+/**************************/
+/*       NAVIGATION       */
+/**************************/
+
+function showPrevious() {
+
+  function prevItem() {
+    loop.unshift(loop[loop.length - 1]);
+    loop.pop()
+    return loop[0]
+  }
+  targetScene = prevItem()
+  getSection(sections);
+
+}
+
+function showNext(key) {
+
+  function nextItem(key) {
+    loop.push(key);
+    loop.shift()
+    return loop[0]
+  }
+
+  targetScene = nextItem(key)
+
+  getSection(sections);
+  toggleArrow(key);
+
+}
+
+// History API
+function backInHistory() {
+  let key = window.location.hash.substr(1);
+
+  let loop_before = loop.slice(0, loop.indexOf(key));
+  let loop_after = loop.slice(loop.indexOf(key), loop.length);
+
+  loop = loop_after.concat(loop_before);
+
+  targetScene = key;
   getSection(sections);
 }
 
+// Can be removed after Development, just there for backwards navigation testing
+function toggleArrow(key) {
+  if (first) {
+    $('#prevArrow').prop("disabled", true);
+    first = false;
+  } else {
+    $('#prevArrow').prop("disabled", false);
+  }
+}
+
+/**************************/
+/*         SIDEBAR        */
+/**************************/
+
 function buildSidebar(key, sceneNames, sceneKeys) {
   let current = sceneKeys[sceneKeys.indexOf(key) % sceneKeys.length];
-
   generateList(key, sceneNames, sceneKeys, current);
   let list = document.getElementById("sidebarItems").getElementsByTagName("a");
-  activateList(list, key, sceneNames, sceneKeys, current);
+  activateList(list, key);
 
 }
 
@@ -196,21 +290,20 @@ function generateList(key, sceneNames, sceneKeys, current) {
   });
 }
 
-
-function activateList(list, key, sceneNames, sceneKeys, current) {
+function activateList(list, key) {
 
   $.each(list, function(key, value) {
 
-    let itemName = value.dataset.target
+    let sceneName = value.dataset.target
 
     $(value).click(function() {
 
-      let loop_before = loop.slice(0, loop.indexOf(itemName));
-      let loop_after = loop.slice(loop.indexOf(itemName), loop.length);
+      let loop_before = loop.slice(0, loop.indexOf(sceneName));
+      let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
 
       loop = loop_after.concat(loop_before);
 
-      targetScene = itemName;
+      targetScene = sceneName;
       getSection(sections);
 
       $('#sidebar').toggleClass('active');
@@ -239,93 +332,5 @@ function updateSidebar(key, sceneKeys) {
       $(value).find('i').addClass('inactive-icon')
     }
   })
-
-}
-
-function loadContent(sections) {
-  $(document).ready(function(){
-    $('.chocolat-parent').Chocolat();
-});
-  $.each(sections, function (key, element) {
-
-    var section = $(element)
-    var sectionContent = $(section).find('.section-content');
-    var scene = section[0].dataset.scene;
-    var content;
-
-    if (sectionContent.length != 0) {
-
-      fetch('./data/content/dist/' + scene + '.html')
-        .then(response => response.text())
-        .then(content => {
-
-          $(sectionContent[0]).html(content);
-          var images = $(sectionContent[0]).find('img');
-        });
-    };
-
-  });
-}
-
-function changeTitle(key) {
-  var scene = scenes[key];
-  var section = $('section[data-scene="' + key + '"]')
-  var sectionHeading = $('a[class^="title section-heading"]').children().html(scene.name);
-}
-
-function toggleArrow(key) {
-  if (first) {
-    $('#prevArrow').prop("disabled", true);
-    first = false;
-  } else {
-    $('#prevArrow').prop("disabled", false);
-  }
-  if (key == prelast) {
-    $('#nextArrow').html("<a href='#'><i class='fas fa-home'></i></a>");
-  } else {
-    $('#nextArrow').html("<div><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M15.4 12.97l-2.68 2.72 1.34 1.38L19 12l-4.94-5.07-1.34 1.38 2.68 2.72H5v1.94z'></path></svg></div>");
-  }
-}
-
-// Show Previous Section
-function showPrevious() {
-
-  function prevItem() {
-    loop.unshift(loop[loop.length - 1]);
-    loop.pop()
-    return loop[0]
-  }
-  targetScene = prevItem()
-  getSection(sections);
-
-}
-
-function showNext(key) {
-
-  function nextItem(key) {
-    loop.push(key);
-    loop.shift()
-    return loop[0]
-  }
-
-  targetScene = nextItem(key)
-
-  getSection(sections);
-  toggleArrow(key);
-
-}
-
-function backInHistory() {
-
-  let key = window.location.hash.substr(1);
-
-
-  let loop_before = loop.slice(0, loop.indexOf(key));
-  let loop_after = loop.slice(loop.indexOf(key), loop.length);
-
-  loop = loop_after.concat(loop_before);
-
-  targetScene = key;
-  getSection(sections);
 
 }

@@ -3,7 +3,7 @@
 /*  DEMO STYLE */
 body {
   font-family: "Roboto", sans-serif;
-  background: $white;
+  background: $white-95;
 }
 
 p {
@@ -43,7 +43,7 @@ a {
 .content {
   height: auto;
   width: calc(100% - 32px);
-  background-color: $white;
+  background-color: $white-95;
   display: block;
   z-index: 100;
   position: absolute;
@@ -53,7 +53,7 @@ a {
   padding: 12px;
 }
 
-.navbar {
+.topbar {
   width: 100%;
   // height: 40px
   position: fixed;
@@ -64,6 +64,69 @@ a {
   background-color: $first-color !important;
   box-shadow: 1px 1px 3px $light-black;
   z-index: 2;
+}
+
+.footerbar {
+  width: 100%;
+  // height: 56px;
+  position: fixed;
+  bottom: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: $white-95 !important;
+  box-shadow: 1px 1px 3px $light-black;
+  z-index: 2;
+
+  .audioProgress {
+    width: 1px;
+    height: 3px;
+    background: $puce;
+    transition: width .1s linear;
+  }
+
+  .audioControls {
+    margin-left: auto;
+    margin-right: auto;
+
+    .play-icon {
+      font-size: 1.4rem;
+    }
+
+    #playAudio {
+      width: 48px;
+      height: 48px;
+    }
+
+    .skipBtn {
+      background-color: $white-95;
+      color: $text-color;
+      margin-top: 8px;
+      width: 40px;
+      height: 40px;
+
+      &:active,
+      &:focus,
+      &:hover,
+      &:visited {
+        color: $text-color;
+        background-color: $lowlight !important;
+        border-color: $white-95 !important;
+        border: 0;
+        border-radius: 50%;
+      }
+      &:before {
+        border-radius: 50%;
+        background: $highlight;
+      }
+      &:hover:before {
+        border-radius: 50%;
+      }
+    }
+    .skip-icon {
+      font-size: 1.0rem;
+    }
+  }
 }
 
 .navbar-btn {
@@ -98,7 +161,7 @@ a {
   display: inline-block;
   float: left;
   font-weight: 400;
-  color: $white;
+  color: $white-95;
   text-align: center;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -113,7 +176,7 @@ a {
   border-radius: 0;
 
   a {
-    color: $white;
+    color: $white-95;
     text-decoration: none;
     padding: 10px 20px;
     font-size: 20px;
@@ -199,7 +262,7 @@ a {
     }
 
     a {
-      color: $white;
+      color: $white-95;
     }
 
     &:before {
@@ -231,7 +294,7 @@ a {
     }
 
     a {
-      color: $white;
+      color: $white-95;
     }
 
     &:before {
@@ -255,7 +318,7 @@ a {
   height: 56px;
   padding: 0;
   margin-top: -8px;
-  color: $white;
+  color: $white-95;
 }
 
 .icon {
@@ -264,12 +327,8 @@ a {
   padding: 0;
 }
 
-.play-icon {
-  font-size: 1.4rem;
-}
-
 .title {
-  color: $white;
+  color: $white-95;
   line-height: 56px;
   margin-left: 12px;
   margin-right: auto;
@@ -285,7 +344,7 @@ a {
 .arrow-icon {
   font-size: 3rem !important;
   text-shadow: 3px 3px 4px $text-color;
-  color: $white;
+  color: $white-95;
 }
 
 .compute {
@@ -295,7 +354,7 @@ a {
 .arrow-left {
   display: inline-block;
   background: rgba(30,30,30,.6);
-  color: $white;
+  color: $white-95;
   border: none;
   font-size: 1rem;
   position: fixed;
@@ -335,7 +394,7 @@ a {
 .arrow-right {
   display: inline-block;
   background: rgba(30,30,30,.6);
-  color: $white;
+  color: $white-95;
   border: none;
   font-size: 1rem;
   position: fixed;
@@ -483,15 +542,19 @@ a {
   padding: 0;
   margin-left: 15px;
   top: 56px;
-  height: calc(100vh - 56px);
+  bottom: 56px;
+  height: calc(100vh - 112px);
   max-width: 100%;
 }
 
 .storymap-story {
+  width: 100%;
   top: 56px;
   padding: 0;
-  margin-left: 15px;
+  margin-left: -15px;
   display: flex;
+  position: absolute;
+  left: 15px;
 }
 
 .visible {}
@@ -505,19 +568,25 @@ a {
 }
 
 section {
-  width: 100%;
-  height: calc(100% + 56px);
-  background-color: $white !important;
+  display: inline-block;
+  width: calc(100% - 112px);
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: none;
+  padding: 0px 15px 0px 15px;
+  background-color: $white-70 !important;
+  box-shadow: 0px 1px 7px rgba(77,77,77,.35);
 }
 
 .section-content {
   width: calc(100% - 30px);
   height: calc(100% + 56px);
-  padding: 15px;
+  padding: 15px 0px 15px 0px;
   font-family: $primary-font !important;
   font-weight: 200 !important;
   font-size: 1rem !important;
   color: $text-color !important;
+
 
   a {
     color: $third-color;
@@ -563,7 +632,7 @@ section {
   .sidebar-header {
     padding: 0;
     height: 140px;
-    color: $white;
+    color: $white-95;
     background: $first-color;
 
     h3 {
@@ -574,7 +643,7 @@ section {
     }
 
     .subtitle {
-      color: $white;
+      color: $white-95;
       font-size: 1rem;
       font-weight: 600;
       padding-left: 16px;
@@ -588,7 +657,7 @@ section {
     border-bottom: 1px solid $lowlight;
 
     p {
-      color: $white;
+      color: $white-95;
       padding: 10px;
     }
 
@@ -676,7 +745,7 @@ section {
 
 a {
   &[aria-expanded="true"] {
-    color: $white;
+    color: $white-95;
   }
 
   &[data-toggle="collapse"] {
@@ -714,17 +783,17 @@ a {
 
 a {
   &.download {
-    background: $white;
+    background: $white-95;
     color: #7386D5;
   }
 
   &.article {
     background: $third-color !important;
-    color: $white !important;
+    color: $white-95 !important;
 
     &:hover {
       background: $third-color !important;
-      color: $white !important;
+      color: $white-95 !important;
     }
   }
 }

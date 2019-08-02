@@ -25,7 +25,6 @@
       throw new Error('Storymap requires Leaflet.');
     }
 
-    // var theSections = [] // Kept for sec check against sceneNames
     var sceneKeys = Object.keys(scenes);
     var sceneNames = {}
 
@@ -170,6 +169,8 @@
         }
         $(".storymap-loader").fadeTo(1, 0);
 
+        /* PER SCENE SETTINGS */
+
         if (scene.slider) {
           map.removeControl(LocateControl);
           map.addControl(OpacityControl);
@@ -190,16 +191,14 @@
           map.removeControl(OpacityControl);
         }
 
-        getMapCredits(scene, layers, settings);
-
-
         if (scene.flyto == false) {
           map.setView([scene.lat, scene.lng], scene.zoom, {
             animate: false,
             easeLinearity: 0.2,
             duration: 4 // in seconds
           })
-        } else if (settings.flyto) {
+        }
+        else if (settings.flyto) {
           map.flyTo([scene.lat, scene.lng], scene.zoom, {
             animate: true,
             easeLinearity: 0.2,
@@ -211,19 +210,17 @@
             easeLinearity: 0.2,
             duration: 4 // in seconds
           })
-
         }
+
+        getMapCredits(scene, layers, settings);
 
         map.invalidateSize();
 
       }
 
-      //change Title
-
-
-      ////////////////////
-      /* EVENT HANDLERS */
-      ///////////////////
+      /**************************/
+      /*     Event Handlers     */
+      /**************************/
 
       sections.on('viewing', function() {
 
@@ -255,27 +252,6 @@
         .addClass('hide');
       });
 
-      buildSections(element, searchfor);
-      buildSidebar(key, sceneNames, sceneKeys);
-
-      // Sidemenu Scene Switch
-      var links = $('a[href^="#scene"]');
-      links.each(function(index) {
-
-        $(this).click(function() {
-
-          if (targetScene !== this.dataset.target) {
-            targetScene = this.dataset.target;
-            getSection(sections);
-          };
-
-          $('#sidebar').toggleClass('active');
-          $('#sidebar').toggleClass('shadow');
-          $('.overlay').removeClass('active');
-        });
-
-      });
-
       // Switch Scenes on Left and Right Arrow click
       $('#nextArrow').click(function() {
         showNext(key);
@@ -284,6 +260,10 @@
       $('#prevArrow').click(function () {
         showPrevious();
       });
+
+
+      buildSections(element, searchfor);
+      buildSidebar(key, sceneNames, sceneKeys);
 
     };
 

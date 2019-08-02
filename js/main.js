@@ -1,14 +1,22 @@
+// Layer Styling
 var stripes_eastside;
+// Leaflet
 var map;
-var loaded = [];
+// Scenes triggered by Geolocation are stored in this array.
+var visited = [];
+
+// Audio Playback
+var audio = $('#audioFile')[0]
+var timer;
+var percent = 0;
 
 var loop = [];
 var sections;
 
 var first = true;
-var prelast;
 
-var targetScene = 'navigation';
+const startScene = 'navigation';
+var targetScene = startScene;
 
 let LocateControl;
 
@@ -188,9 +196,6 @@ const scenes = {
         name: "Konsul-Smidt-Straße",
     }
 };
-$(window).on('hashchange', function(e) {
-  backInHistory()
-});
 
 $('#storymap').storymap({
     scenes: scenes,
@@ -204,6 +209,11 @@ $('#storymap').storymap({
     scrolldown: false,
     zoomControl: true,
     createMap: createMap
+});
+
+// History API
+$(window).on('hashchange', function(e) {
+  backInHistory(targetScene)
 });
 
 // Sidemenu Toggle
@@ -221,17 +231,41 @@ $('#sidebarCollapse').click(function() {
 });
 
 // Audio control
-$("#audioControl").click(function() {
-    $(this).find(".icon").toggleClass('ion-md-play ion-md-pause');
+$("#playAudio").click(function (e) {
+  $(this).find(".icon").toggleClass('ion-md-play ion-md-pause');
 
+  e = e || window.event;
+  let btn = e.target;
+  if (!audio.paused) {
+    audio.pause();
+    isPlaying = false;
+  } else {
+    audio.play();
+    isPlaying = true;
+  }
 });
 
-// Content Toggle
-function toggleIcon() {
-    $("#contentCollapse")
-    .find(".icon")
-    .toggleClass('ion-md-arrow-dropup ion-md-arrow-dropdown');
+$(audio).on("playing", function (_event) {
+  var duration = _event.target.duration;
+  advance(duration, audio);
+});
+
+$(audio).on("pause", function (_event) {
+  clearTimeout(timer);
+});
+
+function advance(duration, element) {
+  var progress = $('#audioProgress')[0]
+  increment = 10 / duration
+  percent = Math.min(increment * element.currentTime * 10, 100);
+  progress.style.width = percent + '%'
+  startTimer(duration, element);
 }
 
-$('.section-content').on('hidden.bs.collapse', toggleIcon);
-$('.section-content').on('show.bs.collapse', toggleIcon);
+function startTimer(duration, element) {
+  if (percent < 100) {
+    timer = setTimeout(function () {
+      advance(duration, element)
+    }, 100);
+  }
+}

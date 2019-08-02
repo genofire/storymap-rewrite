@@ -3,7 +3,8 @@ $black: rgba(0, 0, 0, 0.95);
 $light-black: lighten($black, 30%);
 $shadow: rgba(0, 0, 0, 0.65);
 
-$white: rgba(255, 255, 255, 0.95);
+$white-95: rgba(255, 255, 255, 0.95);
+$white-70: rgba(255, 255, 255, 0.70);
 $anti-flash: rgba(253, 253, 253, 1);
 $highlight: rgba(245, 245, 245, 0.15);
 $lowlight: rgba(231, 231, 231, 0.85);
