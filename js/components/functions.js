@@ -59,10 +59,7 @@ function onEachPoint(feature, layer) {
       if (latlng != undefined && bounds.contains(latlng) && !visited.includes(sceneName)) {
         map.setView(point, 16);
 
-        let loop_before = loop.slice(0, loop.indexOf(sceneName));
-        let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
-
-        loop = loop_after.concat(loop_before);
+        orderLoop (sceneName)
 
         targetScene = sceneName;
         getSection(sections);
@@ -104,10 +101,7 @@ function onItemClick(item) {
   map.setView(item.latlng, 16);
   let sceneName = item.target.feature.properties.scene;
 
-  let loop_before = loop.slice(0, loop.indexOf(sceneName));
-  let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
-
-  loop = loop_after.concat(loop_before);
+  orderLoop (sceneName)
 
   targetScene = sceneName;
   getSection(sections);
@@ -196,41 +190,26 @@ function changeTitle(key) {
 
 function showPrevious() {
 
-  function prevItem() {
-    loop.unshift(loop[loop.length - 1]);
-    loop.pop()
-    return loop[0]
-  }
   targetScene = prevItem()
   getSection(sections);
 
 }
 
 function showNext(key) {
-
-  function nextItem(key) {
-    loop.push(key);
-    loop.shift()
-    return loop[0]
-  }
-
   targetScene = nextItem(key)
-
   getSection(sections);
   toggleArrow(key);
-
 }
 
 // History API
 function backInHistory() {
-  let key = window.location.hash.substr(1);
+  let sceneName = window.location.hash.substr(1);
 
-  let loop_before = loop.slice(0, loop.indexOf(key));
-  let loop_after = loop.slice(loop.indexOf(key), loop.length);
+  console.log(sceneName);
 
-  loop = loop_after.concat(loop_before);
+  prevItem()
 
-  targetScene = key;
+  targetScene = sceneName;
   getSection(sections);
 }
 
@@ -298,10 +277,7 @@ function activateList(list, key) {
 
     $(value).click(function() {
 
-      let loop_before = loop.slice(0, loop.indexOf(sceneName));
-      let loop_after = loop.slice(loop.indexOf(sceneName), loop.length);
-
-      loop = loop_after.concat(loop_before);
+      orderLoop (sceneName)
 
       targetScene = sceneName;
       getSection(sections);

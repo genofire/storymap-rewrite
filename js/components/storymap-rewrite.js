@@ -237,7 +237,7 @@
         // Pushes Scene Name to History API
         window.history.pushState(
           {},
-          key,
+          null,
           window.location.origin + "#" + key
         );
 
