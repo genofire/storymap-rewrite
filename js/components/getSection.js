@@ -1,11 +1,9 @@
 import $ from 'jquery'
 
-export function getSection (sections, targetScene) {
+export function getSection (sections, targetSceneKey) {
   $.each(sections, function (key, element) {
     const section = $(element)
-    // Keep for Development
-    // const sectionContent = $(element).children('.section-content')
-    if (section[0].dataset.scene !== targetScene) {
+    if (section[0].dataset.scene !== targetSceneKey) {
       section.trigger('notviewing')
     } else {
       section.trigger('viewing')

@@ -5,9 +5,10 @@ import 'leaflet.locatecontrol'
 import 'leaflet.ajax'
 import 'leaflet.pattern'
 import 'bootstrap'
-import storymap from './components/storymap-rewrite.js'
+import storymap from './components/storymap.js'
 import { layers } from './layers.js'
-import { scenes } from './scenes.js'
+import { scenesObject } from './scenes.js'
+import { createMap } from './components/createMap.js'
 
 // jQuery Binding
 window.$ = $
@@ -22,7 +23,7 @@ let percent = 0
 
 // Execute storymap(options) on specified ID
 $('#storymap').storymap({
-  scenes: scenes,
+  scenes: scenesObject,
   baselayer: layers.carto_positron,
   loader: false,
   flyto: true,
@@ -34,15 +35,6 @@ $('#storymap').storymap({
   zoomControl: true,
   createMap: createMap
 })
-
-function createMap () {
-  const map = L.map($('.storymap-map')[0], {
-    zoomControl: false,
-    attributionControl: false
-  }).setView([53.09460389460539, 8.771724700927736], 15)
-
-  return map
-}
 
 // Sidemenu Toggle
 $('#dismiss, .overlay').click(function () {

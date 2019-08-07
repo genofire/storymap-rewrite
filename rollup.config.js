@@ -1,22 +1,26 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
+import serve from 'rollup-plugin-serve'
+import livereload from 'rollup-plugin-livereload'
+import resolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
+import { terser } from 'rollup-plugin-terser'
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
-const production = !process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH
 
 export default {
-	input: 'js/main.js',
-	output: {
-		file: 'public/bundle.js',
-		format: 'iife', // immediately-invoked function expression — suitable for <script> tags
-		name: 'Bundle',
-		sourcemap: true
-	},
-	plugins: [
-		resolve(), // tells Rollup how to find date-fns in node_modules
-		commonjs(), // converts date-fns to ES modules
-		production && terser() // minify, but only in production
-	]
-};
+  input: 'js/main.js',
+  output: {
+    file: 'public/bundle.js',
+    format: 'iife', // immediately-invoked function expression — suitable for <script> tags
+    name: 'Bundle',
+    sourcemap: true
+  },
+  plugins: [
+    serve(),
+    livereload(),
+    resolve(), // tells Rollup how to find date-fns in node_modules
+    commonjs(), // converts date-fns to ES modules
+    production && terser() // minify, but only in production
+  ]
+}

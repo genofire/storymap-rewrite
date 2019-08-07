@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { routeStyle, styleFeatures, pointToLayer, onEachPoint, onEachStreet } from './layerStyling.js'
+import { routeStyle, styleFeatures, pointToLayer, onEachPoint, onEachStreet } from './components/layerStyling.js'
 
 export const layers = {
   carto_positron: {

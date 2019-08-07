@@ -1,6 +1,6 @@
 import { layers } from './layers.js'
 
-export const scenes = {
+export const scenesObject = {
   navigation: {
     lat: 53.09460389460539,
     lng: 8.771724700927736,
