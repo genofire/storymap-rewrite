@@ -5,7 +5,7 @@ import { layers } from '../layers.js'
 import { scenesObject } from '../scenes.js'
 import { getSection } from './getSection.js'
 import { fillLoop, orderLoop, nextScene } from './theLoop.js'
-import { addLocateControl } from './addLocateControl.js'
+import { addLocateControl, locateControlWrapper } from './addLocateControl.js'
 import { pushToSectionWrapper } from './sectionWrapper.js'
 
 export default function (options) {

@@ -8,18 +8,19 @@
 - [X] Add Custom Attribution Field
 - [x] Fix Sidebar Scene Selection
 - [x] Browser History
+- [x] Stations should start w/ Text collapsed
 
-- [ ] Stations should start w/ Text collapsed
 - [ ] Audio Playback
 - [ ] Remove IconToggle on empty Sections
 - [ ] ProgressLine on Map (VectorPath)
 - [ ] Gallery
-- [ ] Fix Icon Issue on Transparency Slider
+- [ ] Fix Icon Issue on Transparency Slider (??)
 - [ ] long Titles on small Screens
 - [ ] move to native/cross-platform framework
 - [ ] redesign left/right arrows
 - [ ] decide what should happen on first and last scene (how to navigate)
 - [ ] do not scroll section when scrolling sidebar
+- [ ] show images on map layer
 
 
 ### Geolocation Testing
