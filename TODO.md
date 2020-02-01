@@ -9,6 +9,7 @@
 - [x] Fix Sidebar Scene Selection
 - [x] Browser History
 - [x] Stations should start w/ Text collapsed
+- [x] fixed OpacityControl
 
 - [ ] Audio Playback
 - [ ] Remove IconToggle on empty Sections

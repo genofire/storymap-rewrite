@@ -147,10 +147,23 @@ export default function (options) {
 
         if (scene.slider) {
           const LocateControl = locateControlWrapper[0]
-          map.removeControl(LocateControl)
-          map.addControl(OpacityControl)
-          map.removeControl(ZoomControl)
 
+          // Set Slider Value to 65%
+          OpacityControl.options.value = 65
+
+          // Add Opcaity Control underneath
+          map.removeControl(LocateControl)
+          map.removeControl(ZoomControl)
+          map.addControl(OpacityControl)
+
+          // Set Layer Opacity to 65%
+          for (var value of Object.values(currentLayerGroup._layers)) {
+            if (value.options.changeOpacity === true) {
+              value.setOpacity(0.65)
+            }
+          }
+
+          // Change Layer Opacity on Input
           OpacityControl.on('input change', function (e) {
             for (var value of Object.values(currentLayerGroup._layers)) {
               if (value.options.changeOpacity === true) {
