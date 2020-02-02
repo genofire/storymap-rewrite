@@ -7,6 +7,7 @@ import { getSection } from './getSection.js'
 import { fillLoop, orderLoop, nextScene } from './theLoop.js'
 import { addLocateControl, locateControlWrapper } from './addLocateControl.js'
 import { pushToSectionWrapper } from './sectionWrapper.js'
+import { playBing } from './playAudio.js'
 
 export default function (options) {
   (function ($) {
@@ -237,6 +238,7 @@ export default function (options) {
         const sceneObject = scenesObject[sceneKey]
         $('a[class^="title section-heading"]').children().html(
           sceneObject.name)
+        playBing(sceneObject)
 
         $(this)
           .removeClass('hide')
@@ -269,7 +271,7 @@ export default function (options) {
 
       $('#nextArrow').click(function () {
         const currentSceneKey = window.location.hash.substr(1)
-        console.log(currentSceneKey)
+        // console.log(currentSceneKey)
         const targetSceneKey = nextScene(currentSceneKey)
         getSection(sections, targetSceneKey)
       })

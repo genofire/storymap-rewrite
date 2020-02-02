@@ -27,6 +27,7 @@
         "ionicons": "^4.6.2",
         "jquery": "3.4.1",
         "leaflet": "^1.5.1",
+        "leaflet-labeled-circle": "^1.0.3",
         "leaflet-range": "^0.1.5",
         "leaflet.ajax": "^1.1.0",
         "leaflet.locatecontrol": "^0.67.0",

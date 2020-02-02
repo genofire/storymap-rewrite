@@ -11,17 +11,23 @@
 - [x] Stations should start w/ Text collapsed
 - [x] fixed OpacityControl
 
+## Audio
 - [ ] Audio Playback
+- [ ] Navigation für Audio: 15 Sek vor/zurückspringen
+- [ ] Tonsignal bei Erreichen der Station
+
 - [ ] Remove IconToggle on empty Sections
 - [ ] ProgressLine on Map (VectorPath)
-- [ ] Gallery
+- [ ] Gallery, where to show images?
 - [ ] Fix Icon Issue on Transparency Slider (??)
-- [ ] long Titles on small Screens
-- [ ] move to native/cross-platform framework
-- [ ] redesign left/right arrows
+- [ ] fix issues with long titles on small Screens
+
 - [ ] decide what should happen on first and last scene (how to navigate)
 - [ ] do not scroll section when scrolling sidebar
-- [ ] show images on map layer
+
+## Nice-To-Have
+- [ ] Nummerierte CircleMarker: https://github.com/w8r/leaflet-labeled-circle
+- [ ] package as APP
 
 
 ### Geolocation Testing

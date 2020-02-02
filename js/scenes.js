@@ -18,7 +18,8 @@ export const scenesObject = {
     layers: [layers.ueberseehafenbecken, layers.data_route, layers.data_points],
     flyto: true,
     navigateTo: true,
-    name: 'Überseetor'
+    name: 'Überseetor',
+    audio: './data/audio/ueberseetor.wav'
   },
   europahafen: {
     lat: 53.09412391687471,
@@ -28,7 +29,8 @@ export const scenesObject = {
     flyto: true,
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
-    name: 'Europahafen'
+    name: 'Europahafen',
+    audio: './data/audio/train.ogg'
   },
   weserkorrektion: {
     lat: 53.1127,
