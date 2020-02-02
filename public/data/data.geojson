@@ -1,0 +1,89 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+		    "chapter": "Introduction"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.775233030319214,
+          53.09818584120143
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+		    "chapter": "Coffee"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.773913383483887,
+          53.097928157156915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+		    "chapter": "Cotton"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.771499395370483,
+          53.09636269341763
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+		    "chapter": "Port Construction"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.765995502471922,
+          53.09412391687471
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+		    "chapter": "Konsul Smidt"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.774042129516602,
+          53.09129226143368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+		    "chapter": "Final Remarks"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.774774372577667,
+          53.09397573474871
+        ]
+      }
+    }
+  ]
+}

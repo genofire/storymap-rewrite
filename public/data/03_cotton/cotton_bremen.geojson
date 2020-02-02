@@ -1,0 +1,103 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Bremer Baumwollbörse",
+		    "description": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.807938,
+          53.074942
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Vietorstraße",
+		    "description": "benannt nach dem Baumwollhändler Vietor"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.801033,
+          53.085580
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Knoops Park",
+		    "description": "Baumwollhändler und Textilfabrikant"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.667941,
+          53.163845
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Papendieckstraße",
+		    "description": "Christoph Papendieck (1839-1891), Bremer Kaufmann, Mitinitiiator der Bürgerpark-Ausstellung 1890, Mitgründer der Bremer Lagerhausgesellschaft"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.875976,
+          53.082906
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Hermann-Henrich-Meier-Allee",
+		    "description": "Kaufmann (u.a. Baumwolle), Gründer des Norddeutschen Lloyd"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.846904,
+          53.092549
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Wätjenstraße",
+		    "description": "Handelsunternehmen und Reederei, das u.a. mit Baumwolle handelte"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.853635,
+          53.089857
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Wätjensschloss",
+		    "description": "Der Reeder und Überseehändler Diedrich Heinrich Wätjen baute sich mit seinem Vermögen ein Schloss"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.586831,
+          53.178193
+        ]
+      }
+    }
+  ]
+}
