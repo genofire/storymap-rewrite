@@ -8,7 +8,8 @@ export const scenesObject = {
     layers: [layers.data_route, layers.data_points],
     flyto: true,
     navigation: true,
-    name: 'Navigation'
+    name: 'Navigation',
+    audio: './data/audio/navigation.ogg'
   },
   ueberseetor: {
     lat: 53.09476,
@@ -19,7 +20,7 @@ export const scenesObject = {
     flyto: true,
     navigateTo: true,
     name: 'Überseetor',
-    audio: './data/audio/ueberseetor.wav'
+    audio: './data/audio/ueberseetor.ogg'
   },
   europahafen: {
     lat: 53.09412391687471,
@@ -30,7 +31,7 @@ export const scenesObject = {
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
     name: 'Europahafen',
-    audio: './data/audio/train.ogg'
+    audio: './data/audio/europahafen.ogg'
   },
   weserkorrektion: {
     lat: 53.1127,
@@ -60,7 +61,8 @@ export const scenesObject = {
     slider: false,
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
-    name: 'Speicher XI'
+    name: 'Speicher XI',
+    audio: './data/audio/speicher11.ogg'
   },
   fabrikenufer: {
     lat: 53.09818262016042,
@@ -69,7 +71,8 @@ export const scenesObject = {
     flyto: true,
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
-    name: 'Fabrikenufer'
+    name: 'Fabrikenufer',
+    audio: './data/audio/fabrikenufer.ogg'
   },
   waller_wied: {
     lat: 53.09397573474871,
@@ -78,7 +81,8 @@ export const scenesObject = {
     flyto: true,
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
-    name: 'Waller Wied'
+    name: 'Waller Wied',
+    audio: './data/audio/wallerwied.ogg'
   },
   industriehaefen: {
     lat: 53.1252,
@@ -96,6 +100,7 @@ export const scenesObject = {
     flyto: true,
     navigateTo: true,
     layers: [layers.data_route, layers.data_points],
-    name: 'Konsul-Smidt-Straße'
+    name: 'Konsul-Smidt-Straße',
+    audio: './data/audio/konsulsmidtstr.ogg'
   }
 }

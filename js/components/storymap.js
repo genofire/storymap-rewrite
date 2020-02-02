@@ -41,6 +41,8 @@ export default function (options) {
       sceneKeysAndNames[key] = value.name
     })
 
+    console.log(sceneKeysAndNames);
+
     const makeStoryMap = function (element, scenesObject) {
       $(element).addClass('storymap')
       const searchfor = settings.selector
@@ -238,7 +240,7 @@ export default function (options) {
         const sceneObject = scenesObject[sceneKey]
         $('a[class^="title section-heading"]').children().html(
           sceneObject.name)
-        playBing(sceneObject)
+        playBing(scenesObject, sceneKey, sceneObject)
 
         $(this)
           .removeClass('hide')

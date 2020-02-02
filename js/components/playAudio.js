@@ -1,33 +1,40 @@
 import $ from 'jquery'
 
-export function playBing (sceneObject) {
+export function playBing (scenesObject, sceneKey, sceneObject) {
   if (sceneObject.audio !== undefined) {
     const audio = new Audio('./data/audio/Information_Block.ogg')
     audio.play()
     audio.onended = function () {
-      playSection(sceneObject)
+      playSection(scenesObject, sceneKey)
     }
   }
 }
 
 // Design this to be scene specific. State of Audio should be maintained.
 
-export function playSection (sceneObject) {
+export function playSection (scenesObject, sceneKey) {
   // Audio Playback
-  const audio = new Audio(sceneObject.audio)
-  audio.pause()
-  const audioTimes = {}
+  const scenesAudio = {}
   let timer
   let percent = 0
 
+  $.each(scenesObject, function (key, value) {
+    scenesAudio[key] = new Audio(value.audio)
+  })
+
+  const audio = scenesAudio[sceneKey]
+
+  // console.log(audio);
   // Audio control
   $('#playAudio').click(function (e) {
     $(this).find('.icon').toggleClass('ion-md-play ion-md-pause')
 
     if (!audio.paused) {
       audio.pause()
+      console.log(audio)
     } else {
       audio.play()
+      console.log(audio)
     }
   })
 
@@ -53,11 +60,6 @@ export function playSection (sceneObject) {
       timer = setTimeout(function () {
         advance(duration, element)
       }, 100)
-      if (!(audio.currentSrc in audioTimes) && (audioTimes.currentSrc = {})) {
-        audioTimes[audio.currentSrc] = audio.currentTime
-        console.log(audio)
-        console.log(audioTimes)
-      }
     }
   }
 }
