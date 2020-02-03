@@ -1,5 +1,7 @@
 import $ from 'jquery'
 
+const scenesAudio = {}
+
 export function playBing (scenesObject, sceneKey, sceneObject) {
   if (sceneObject.audio !== undefined) {
     const audio = new Audio('./data/audio/Information_Block.ogg')
@@ -14,12 +16,13 @@ export function playBing (scenesObject, sceneKey, sceneObject) {
 
 export function playSection (scenesObject, sceneKey) {
   // Audio Playback
-  const scenesAudio = {}
   let timer
   let percent = 0
 
   $.each(scenesObject, function (key, value) {
-    scenesAudio[key] = new Audio(value.audio)
+    if(!scenesAudio[key]) {
+       scenesAudio[key] = new Audio(value.audio)
+    }
   })
 
   const audio = scenesAudio[sceneKey]
