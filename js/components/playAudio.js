@@ -31,7 +31,7 @@ export function playSection (scenesObject, sceneKey) {
   }
 
   // Audio control
-  $('#playAudio').click(function (e) {
+  $('#playAudio').off('click').click(function (e) {
     $(this).find('.icon').toggleClass('ion-md-play ion-md-pause')
 
     if (!audio.paused) {
