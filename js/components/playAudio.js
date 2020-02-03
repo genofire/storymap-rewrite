@@ -19,6 +19,7 @@ export function playSection (scenesObject, sceneKey) {
   let timer
   let percent = 0
 
+  // start downloading / init audiofile
   let audio = scenesAudio[sceneKey]
   if (!audio) {
     const sceneObj = scenesObject[sceneKey]
@@ -29,6 +30,11 @@ export function playSection (scenesObject, sceneKey) {
     audio = new Audio(sceneObj.audio)
     scenesAudio[sceneKey] = audio
   }
+
+  // pause old audiofile
+  Object.keys(scenesAudio).forEach(function(key) {
+    scenesAudio[key].pause()
+  })
 
   // Audio control
   $('#playAudio').off('click').click(function (e) {
