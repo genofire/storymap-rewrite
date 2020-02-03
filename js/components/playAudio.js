@@ -19,15 +19,17 @@ export function playSection (scenesObject, sceneKey) {
   let timer
   let percent = 0
 
-  $.each(scenesObject, function (key, value) {
-    if(!scenesAudio[key]) {
-       scenesAudio[key] = new Audio(value.audio)
+  let audio = scenesAudio[sceneKey]
+  if (!audio) {
+    const sceneObj = scenesObject[sceneKey]
+    if (!sceneObj) {
+      console.log('scene not find during load audio')
+      return
     }
-  })
+    audio = new Audio(sceneObj.audio)
+    scenesAudio[sceneKey] = audio
+  }
 
-  const audio = scenesAudio[sceneKey]
-
-  // console.log(audio);
   // Audio control
   $('#playAudio').click(function (e) {
     $(this).find('.icon').toggleClass('ion-md-play ion-md-pause')
